@@ -70,7 +70,7 @@ footer p, footer small {
     opacity: 0.5;
 }
 
-footer p > a {
+footer p > a, footer small > a {
     color: #4b4b4b;
     opacity: 1;
 }
