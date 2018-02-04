@@ -23,7 +23,7 @@ class ApplicationForm(BetterModelForm):
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '+#########'}))
     university = forms.CharField(required=True,
-                                 label='What university are you studying in?',
+                                 label='What university are you studying at?',
                                  help_text='Current or most recent school you attended.',
                                  widget=forms.TextInput(
                                      attrs={'class': 'typeahead-schools', 'autocomplete': 'off'}))
@@ -170,8 +170,8 @@ class ApplicationForm(BetterModelForm):
     class Meta:
         model = models.Application
         help_texts = {
-            'gender': 'This is for demographic purposes. You can skip this '
-                      'question if you want',
+            'gender': 'This is for demographic purposes. Feel free to skip this '
+                      'question.',
             'graduation_year': 'What year have you graduated on or when will '
                                'you graduate',
             'degree': 'What\'s your major?',
