@@ -7,7 +7,7 @@ HACKATHON_NAME = 'Hack the Burgh'
 # What's the name for the application
 HACKATHON_APPLICATION_NAME = 'Hack the Burgh registration'
 # Hackathon timezone
-TIME_ZONE = 'MST'
+TIME_ZONE = 'GMT'
 # This description will be used on the html and sharing meta tags
 HACKATHON_DESCRIPTION = 'Hack the Burgh is the hackathon beyond the wall!'
 # Domain where application is deployed, can be set by env variable
