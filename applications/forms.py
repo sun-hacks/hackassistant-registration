@@ -192,8 +192,8 @@ class ApplicationForm(BetterModelForm):
         }
 
         labels = {
-            'gender': 'What is your gender?',
-            'graduation_year': 'What year are you graduating?',
+            'gender': 'What gender do you identify as?',
+            'graduation_year': 'What year will you graduate?',
             'tshirt_size': 'What\'s your t-shirt size?',
             'diet': 'Dietary requirements',
             'lennyface': 'Describe yourself in one "lenny face"?',
