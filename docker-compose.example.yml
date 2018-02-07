@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  registration:
+    image: hreeder/hackassistant-registration:alpha
+    environment:
+      PROD_MODE: "False"
+      SECRET: mysecretgoeshere
+      DATABASE_URL: postgres://hackasstant:hackassistant@db/reg
+      DOMAIN: chimera
+      GUNICORN_ACCESSLOG: "-"
+    networks:
+      - web
+      - db
+    volumes:
+      - ./staticfiles:/usr/src/app/staticfiles
+      - ./settings.py:/usr/src/app/app/settings.py
+      - ./hackathon_variables.py:/usr/src/app/app/hackathon_variables.py
+  db:
+    image: postgres
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: hackassistant
+      POSTGRES_PASSWORD: hackassistant
+    networks:
+      - db
+networks:
+  web:
+  db:
