@@ -139,7 +139,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             ('Personal Info',
              {'fields': ('gender', 'university', 'degree', 'phone_number',
                          'graduation_year', 'tshirt_size', 'diet', 'other_diet',
-                         'under_age', 'lennyface'),
+                         'under_age'),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
             ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
             ('Show us what you\'ve built', {'fields': ('github', 'devpost', 'linkedin', 'site', 'resume'), }),
@@ -177,8 +177,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                'you graduate?',
             'degree': 'What\'s your degree?',
             'other_diet': 'We\'ll make sure you can enjoy all the food.',
-            'lennyface': 'Tip: you can chose from here <a href="http://textsmili.es/" target="_blank">'
-                         ' http://textsmili.es/</a>',
             'projects': 'You can talk about about past hackathons, personal projects, awards etc. '
                         '(we love links) Show us your passion! :D',
             'reimb_amount': 'We try our best to cover costs for all hackers, but our budget is limited'
@@ -197,7 +195,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             'graduation_year': 'What year will you graduate?',
             'tshirt_size': 'What\'s your t-shirt size?',
             'diet': 'Dietary requirements',
-            'lennyface': 'Describe yourself in one "lenny face"?',
             'origin': 'Where are you joining us from?',
             'description': 'Why are you excited about %s?' % settings.HACKATHON_NAME,
             'projects': 'What projects have you worked on?',
@@ -207,4 +204,4 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
         }
 
-        exclude = ['user', 'uuid', 'invited_by', 'submission_date', 'status_update_date', 'status', ]
+        exclude = ['user', 'uuid', 'invited_by', 'submission_date', 'status_update_date', 'status', 'lennyface', ]
