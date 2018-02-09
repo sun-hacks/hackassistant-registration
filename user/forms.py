@@ -34,7 +34,7 @@ class LoginForm(forms.Form):
 class RegisterForm(LoginForm):
     password2 = forms.CharField(widget=forms.PasswordInput, label='Repeat password', max_length=100,
                                 help_text=' '.join(password_validators_help_texts()))
-    name = forms.CharField(label='Full name', max_length=225, help_text='How do you want us to call you?')
+    name = forms.CharField(label='Full name', max_length=225, help_text='Please enter your preferred full name.')
 
     field_order = ['name', 'email', 'password', 'password2']
 
