@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.templatetags.staticfiles import static as static_url
 from django.views.generic import RedirectView
 
 from app import views
@@ -14,13 +15,14 @@ urlpatterns = [
     url(r'^applications/', include('organizers.urls')),
     url(r'^', include('applications.urls')),
     url(r'^$', views.root_view, name='root'),
-    url(r'^favicon.ico', RedirectView.as_view(url=static('favicon.ico'))),
+    url(r'^favicon.ico', RedirectView.as_view(url=static_url('favicon.png'))),
     url(r'^checkin/', include('checkin.urls')),
     url(r'^teams/', include('teams.urls')),
     url(r'^stats/', include('stats.urls')),
     url(r'code_conduct/$', views.code_conduct, name='code_conduct'),
 
 ]
+print(static_url('favicon.png'))
 
 if settings.REIMBURSEMENT_ENABLED:
     urlpatterns.append(url(r'^reimbursement/', include('reimbursement.urls')))
