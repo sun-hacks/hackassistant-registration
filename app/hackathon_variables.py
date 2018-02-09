@@ -15,7 +15,7 @@ HACKATHON_DOMAIN = os.environ.get('DOMAIN', 'localhost:8000')
 # Hackathon contact email: where should all hackers contact you. It will also be used as a sender for all emails
 HACKATHON_CONTACT_EMAIL = 'hello@hacktheburgh.com'
 # Hackathon logo url, will be used on all emails
-HACKATHON_LOGO_URL = 'https://my.hacktheburgh.com/static/logo.png'
+HACKATHON_LOGO_URL = 'http://2018.hacktheburgh.com/static/img/logo-htb-print.png'
 
 HACKATHON_OG_IMAGE = 'http://2018.hacktheburgh.com/static/img/htb-preview.jpg'
 # (OPTIONAL) Track visits on your website
