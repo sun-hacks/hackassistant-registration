@@ -51,13 +51,9 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         widget=forms.RadioSelect
     )
 
-    under_age = forms.TypedChoiceField(
-        required=True,
-        label='How old are you?',
-        initial=False,
-        coerce=lambda x: x == 'True',
-        choices=((False, '18 or over'), (True, 'Under 18')),
-        widget=forms.RadioSelect
+    under_age = forms.BooleanField(
+        required=False,
+        label='I declare that I am over 18.',
     )
 
     code_conduct = forms.BooleanField(required=False,
@@ -81,6 +77,12 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         if not cc and not self.instance.pk:
             raise forms.ValidationError("You must accept our code of conduct.")
         return cc
+
+    def clean_under_age(self):
+        over_18 = self.cleaned_data.get('under_age', False)
+        if not over_18 and not self.instance.pk:
+            raise forms.ValidationError("You must be 18 or over to attend.")
+        return not over_18
 
     def clean_github(self):
         data = self.cleaned_data['github']
@@ -138,8 +140,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         self._fieldsets = [
             ('Personal Info',
              {'fields': ('university', 'degree', 'gender', 'phone_number',
-                         'graduation_year', 'tshirt_size', 'diet', 'other_diet',
-                         'under_age'),
+                         'graduation_year', 'tshirt_size', 'diet', 'other_diet',),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
             ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
             ('Show us what you\'ve built', {'fields': ('github', 'devpost', 'linkedin', 'site', 'resume'), }),
@@ -165,7 +166,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fields that we only need the first time the hacker fills the application
         # https://stackoverflow.com/questions/9704067/test-if-django-modelform-has-instance
         if not self.instance.pk:
-            self._fieldsets.append(('Code of Conduct', {'fields': ('code_conduct',)}))
+            self._fieldsets.append(('Code of Conduct', {'fields': ('code_conduct', 'under_age')}))
         return super(ApplicationForm, self).fieldsets
 
     class Meta:
