@@ -53,7 +53,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     under_age = forms.BooleanField(
         required=False,
-        label='I declare that I am over 18.',
+        label='I declare that I am at least 18 years of age.',
     )
 
     code_conduct = forms.BooleanField(required=False,
