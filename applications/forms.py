@@ -178,7 +178,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             'degree': 'What\'s your degree?',
             'other_diet': 'We\'ll make sure you can enjoy all the food.',
             'projects': 'You can talk about about past hackathons, personal projects, awards, and so on. '
-                        'We love links, so show us your passion!',
+                        'We love links, so show us your passion! Go into lots of detail.',
             'reimb_amount': 'We try our best to cover costs for all hackers, but our budget is limited'
         }
 
