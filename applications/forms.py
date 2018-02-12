@@ -101,9 +101,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     def clean_projects(self):
         data = self.cleaned_data['projects']
-        first_timer = self.cleaned_data['first_timer']
-        if not first_timer and not data:
-            raise forms.ValidationError("Please fill this in order for us to know you a bit better")
+        if not data:
+            raise forms.ValidationError("This field is required.")
         return data
 
     def clean_reimb_amount(self):
@@ -178,8 +177,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                'you graduate?',
             'degree': 'What\'s your degree?',
             'other_diet': 'We\'ll make sure you can enjoy all the food.',
-            'projects': 'You can talk about about past hackathons, personal projects, awards etc. '
-                        '(we love links) Show us your passion! :D',
+            'projects': 'You can talk about about past hackathons, personal projects, awards, and so on. '
+                        'We love links, so show us your passion!',
             'reimb_amount': 'We try our best to cover costs for all hackers, but our budget is limited'
         }
 
