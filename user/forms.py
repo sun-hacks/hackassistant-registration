@@ -38,6 +38,13 @@ class RegisterForm(LoginForm):
 
     field_order = ['name', 'email', 'password', 'password2']
 
+    def clean_email(self):
+        addr = self.cleaned_data.get("email")
+        if "yahoo." in addr or "rocketmail.com" in addr or "ymail.com" in addr:
+            raise forms.ValidationError("We are having deliverability problems with Yahoo addresses. Please use another email address, e.g school email.)")
+
+        return addr
+
     def clean_password2(self):
         # Check that the two password entries match
         password = self.cleaned_data.get("password")
