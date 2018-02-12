@@ -59,7 +59,7 @@ DIETS = [
     (D_OTHER, 'Other')
 ]
 
-TSHIRT_SIZES = [(size, size) for size in ('XS S M L XL XXL'.split(' '))]
+TSHIRT_SIZES = [(size, size) for size in ('S M L XL XXL'.split(' '))]
 DEFAULT_TSHIRT_SIZE = 'M'
 
 YEARS = [(int(size), size) for size in ('2017 2018 2019 2020 2021 2022 2023'.split(' '))]
