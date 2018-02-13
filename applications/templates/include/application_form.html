@@ -32,7 +32,7 @@
     <small><span style="color: red">*</span>Indicates required field</small>
 
     {% if not application or application.can_be_edit %}
-        <button id="btn-application-submit" class="btn btn-success btn-block" type="submit">{% if application %}Update application{% else %}
+        <button class="btn btn-success btn-block" type="submit">{% if application %}Update application{% else %}
             Submit application{% endif %}</button>
     {% endif %}
 </form>
@@ -44,25 +44,6 @@
 <script>
 
     $(document).ready(function () {
-            var formUpdated = false;
-            $("input").on("change", () => {
-                formUpdated = true;
-            });
-
-            var preventTabChange = () => {
-                if (formUpdated) {
-                    return "Your application has not been saved. Are you sure you want to leave?";
-                }
-            }
-
-            window.onbeforeunload = preventTabChange;
-
-            $("#btn-application-submit").click(e => {
-                window.onbeforeunload = null;
-                setTimeout(() => {
-                    window.onbeforeunload = preventTabChange;
-                }, 50);
-            });
 
             make_field_typeahead('university', '{% static 'schools.json' %}');
             make_field_typeahead('degree', '{% static 'degrees.json' %}');
