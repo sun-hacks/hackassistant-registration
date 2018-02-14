@@ -31,7 +31,7 @@ class OverwriteOnlyModelFormMixin(object):
             else:
                 post_key = field
 
-            if post_key not in self.data and post_key != "resume":
+            if post_key not in list(self.data.keys()) + list(self.files.keys()):
                 # value was not posted, thus it should not overwrite any data.
                 del cleaned_data[field]
 
