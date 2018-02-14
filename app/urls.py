@@ -22,7 +22,6 @@ urlpatterns = [
     url(r'code_conduct/$', views.code_conduct, name='code_conduct'),
 
 ]
-print(static_url('favicon.png'))
 
 if settings.REIMBURSEMENT_ENABLED:
     urlpatterns.append(url(r'^reimbursement/', include('reimbursement.urls')))
