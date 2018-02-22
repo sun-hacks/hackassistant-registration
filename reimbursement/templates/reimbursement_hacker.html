@@ -57,7 +57,7 @@
                 {% if not reimbursement.is_draft  and not reimbursement.waitlisted %}
                     <dt>Amount</dt>
                     <dd>
-                        {{ reimbursement.reimbursement_money|default:reimbursement.assigned_money }}{{ h_currency }}</dd>
+                        {{ h_currency }}{{ reimbursement.reimbursement_money|default:reimbursement.assigned_money }}</dd>
                     {% if reimbursement.multiple_hackers %}
                         <dt>Other hackers covered</dt>
                         <dd>{{ reimbursement.friend_emails }}</dd>
