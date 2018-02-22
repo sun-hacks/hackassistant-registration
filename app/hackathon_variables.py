@@ -50,7 +50,7 @@ HACKATHON_DEV_EMAILS = ['me@qaisjp.com']
 # Reimbursement configuration
 REIMBURSEMENT_ENABLED = True
 CURRENCY = '£'
-REIMBURSEMENT_EXPIRY_DAYS = 5
+REIMBURSEMENT_EXPIRY_DAYS = 3
 REIMBURSEMENT_REQUIREMENTS = 'You have to submit a project and demo it during the event in order to be reimbursed.'
 REIMBURSEMENT_DEADLINE = timezone.datetime(2018, 3, 9, 3, 14, tzinfo=timezone.pytz.timezone(TIME_ZONE))
 
