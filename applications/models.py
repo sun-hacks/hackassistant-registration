@@ -231,7 +231,7 @@ class Application(models.Model):
         return self.status == APP_PENDING
 
     def can_be_edit(self):
-        return self.status == APP_PENDING and not self.vote_set.exists() and not utils.is_app_closed()
+        return APP_INVITED or APP_CONFIRMED or APP_ATTENDED or (self.status == APP_PENDING and not self.vote_set.exists() and not utils.is_app_closed())
 
     def is_invited(self):
         return self.status == APP_INVITED
