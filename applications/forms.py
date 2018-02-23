@@ -125,7 +125,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     def clean_other_diet(self):
         data = self.cleaned_data['other_diet']
         diet = self.cleaned_data['diet']
-        if diet == 'Others' and not data:
+        if diet == 'Other' and not data:
             raise forms.ValidationError("Please fill your specific diet requirements")
         return data
 
