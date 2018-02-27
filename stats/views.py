@@ -1,3 +1,5 @@
+from functools import reduce
+
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from django.http import JsonResponse
@@ -51,6 +53,9 @@ def app_stats_api(request):
         .annotate(applications=Count('status'))
     status_count = map(lambda x: dict(status_name=STATUS_DICT[x['status']], **x), status_count)
 
+    confirmed_count = reduce(lambda x, y: x['status'] == 'C' and x or y, status_count)['applications']
+    invited_count = reduce(lambda x, y: x['status'] == 'I' and x or y, status_count)['applications']
+
     gender_count = Application.objects.all().values('gender') \
         .annotate(applications=Count('gender'))
     gender_count = map(lambda x: dict(gender_name=GENDER_DICT[x['gender']], **x), gender_count)
@@ -72,6 +77,7 @@ def app_stats_api(request):
         {
             'update_time': timezone.now(),
             'app_count': Application.objects.count(),
+            'total_expected': confirmed_count + invited_count,
             'status': list(status_count),
             'shirt_count': list(shirt_count),
             'shirt_count_confirmed': list(shirt_count_confirmed),

@@ -15,6 +15,7 @@
             <h3>Status</h3>
             <div id="applications_stats"></div>
             <p><b>Application count:</b> <span id="app_count"></span></p>
+            <p><b>Invites and confirmed:</b> <span id="total_expected"></span></p>
         </div>
         <div class="col-md-6">
             <h3>Gender</h3>
@@ -192,6 +193,7 @@
             $('#other_diet').html(data['other_diet']);
             $('#update_date').html(data['update_time']);
             $('#app_count').html(data['app_count']);
+            $('#total_expected').html(data['total_expected']);
         })
         ;
 
