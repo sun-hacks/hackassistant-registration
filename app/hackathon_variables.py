@@ -28,7 +28,7 @@ HACKATHON_FACEBOOK_PAGE = 'compsoc'
 HACKATHON_GITHUB_REPO = 'https://github.com/compsoc-edinburgh/hackassistant-registration/'
 
 # (OPTIONAL) Applications deadline
-HACKATHON_APP_DEADLINE = timezone.datetime(2018, 2, 17, 18, 15, tzinfo=timezone.pytz.timezone(TIME_ZONE))
+HACKATHON_APP_DEADLINE = timezone.datetime(2018, 3, 10, 17, 15, tzinfo=timezone.pytz.timezone(TIME_ZONE))
 
 # (OPTIONAL) When to arrive at the hackathon
 HACKATHON_ARRIVE = 'Registration opens at 9:00 AM and closes at 10:30 AM on Saturday March 10th, ' \
