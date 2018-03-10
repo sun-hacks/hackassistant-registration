@@ -76,7 +76,7 @@ class CheckInHackerView(IsVolunteerMixin, TabsView):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class CheckinRankingView(TabsViewMixin, IsOrganizerMixin, SingleTableMixin, TemplateView):
+class CheckinRankingView(TabsViewMixin, IsVolunteerMixin, SingleTableMixin, TemplateView):
     template_name = 'checkin/ranking.html'
     table_class = RankingListTable
 
