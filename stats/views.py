@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
 from django.http import JsonResponse
@@ -5,22 +6,25 @@ from django.urls import reverse
 from django.utils import timezone
 
 from app.views import TabsView
+from applications import models as a_models
 from applications.models import Application, STATUS, APP_CONFIRMED, GENDERS
-from reimbursement.models import Reimbursement, RE_STATUS, RE_DRAFT
 from user.mixins import is_organizer, IsOrganizerMixin
 
 STATUS_DICT = dict(STATUS)
-RE_STATUS_DICT = dict(RE_STATUS)
 GENDER_DICT = dict(GENDERS)
 
 
 def stats_tabs():
-    return [('Applications', reverse('app_stats'), False),
-            ('Reimbursements', reverse('reimb_stats'), False)]
+    tabs = [('Applications', reverse('app_stats'), False), ]
+    if getattr(settings, 'REIMBURSEMENT_ENABLED', False):
+        tabs.append(('Reimbursements', reverse('reimb_stats'), False))
+    return tabs
 
 
 @is_organizer
 def reimb_stats_api(request):
+    from reimbursement.models import Reimbursement, RE_STATUS, RE_DRAFT
+    RE_STATUS_DICT = dict(RE_STATUS)
     # Status analysis
     status_count = Reimbursement.objects.all().values('status') \
         .annotate(reimbursements=Count('status'))
@@ -54,11 +58,17 @@ def app_stats_api(request):
     gender_count = Application.objects.all().values('gender') \
         .annotate(applications=Count('gender'))
     gender_count = map(lambda x: dict(gender_name=GENDER_DICT[x['gender']], **x), gender_count)
+    tshirt_dict = dict(a_models.TSHIRT_SIZES)
+    shirt_count = map(
+        lambda x: {'tshirt_size': tshirt_dict.get(x['tshirt_size'], 'Unknown'), 'applications': x['applications']},
+        Application.objects.values('tshirt_size').annotate(applications=Count('tshirt_size'))
+    )
 
-    shirt_count = Application.objects.values('tshirt_size') \
+    shirt_count_confirmed = map(
+        lambda x: {'tshirt_size': tshirt_dict.get(x['tshirt_size'], 'Unknown'), 'applications': x['applications']},
+        Application.objects.filter(status=APP_CONFIRMED).values('tshirt_size')
         .annotate(applications=Count('tshirt_size'))
-    shirt_count_confirmed = Application.objects.filter(status=APP_CONFIRMED).values('tshirt_size') \
-        .annotate(applications=Count('tshirt_size'))
+    )
 
     diet_count = Application.objects.values('diet') \
         .annotate(applications=Count('diet'))

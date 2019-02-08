@@ -50,13 +50,16 @@ HACKATHON_DEV_EMAILS = ['me@qaisjp.com']
 # Reimbursement configuration
 REIMBURSEMENT_ENABLED = True
 CURRENCY = '£'
-REIMBURSEMENT_EXPIRY_DAYS = 3
+REIMBURSEMENT_EXPIRY_DAYS = 5
 REIMBURSEMENT_REQUIREMENTS = 'You have to submit a project and demo it during the event in order to be reimbursed.'
-REIMBURSEMENT_DEADLINE = timezone.datetime(2018, 3, 9, 3, 14, tzinfo=timezone.pytz.timezone(TIME_ZONE))
+REIMBURSEMENT_DEADLINE = timezone.datetime(2019, 3, 11, 3, 14, tzinfo=timezone.pytz.timezone(TIME_ZONE))
 
 # (OPTIONAL) Max team members. Defaults to 4
 TEAMS_ENABLED = True
 HACKATHON_MAX_TEAMMATES = 4
+
+# (OPTIONAL) Code of conduct link
+# CODE_CONDUCT_LINK = "https://pages.hackcu.org/code_conduct/"
 
 # (OPTIONAL) Slack credentials
 # Highly recommended to create a separate user account to extract the token from
@@ -70,3 +73,10 @@ SLACK = {
 # This allows to store an extra cookie in the browser to be shared with other application on the same domain
 LOGGED_IN_COOKIE_DOMAIN = '.hacktheburgh.com'
 LOGGED_IN_COOKIE_KEY = 'hackassistant_logged_in'
+
+# Hardware configuration
+HARDWARE_ENABLED = False
+# Hardware request time length (in minutes)
+HARDWARE_REQUEST_TIME = 15
+# Can Hackers start a request on the hardware lab?
+# HACKERS_CAN_REQUEST = False

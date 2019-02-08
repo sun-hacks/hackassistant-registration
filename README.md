@@ -19,11 +19,13 @@
 - Review applications interface for organizers (includes vote) ⚖️
 - Email verification 📨
 - Forgot password 🤔
+- Automatic progress save on draft applications ⚙️
 - Internal user role management: Hacker, Organizer, Volunteer, Director and Admin ☕️
 - Automatic control of confirmation, expiration and cancellation flows 🔄
 - Django Admin dashboard to manually edit applications, reimbursement and users 👓
 - Flexible email backend (SendGrid is the default and recommended supported backend) 📮
-- (Optional) Automated slack invites on confirm 
+- (Optional) Automated slack invites on confirm #️⃣
+- (Optional) MyMLH sign up 📥
 
 **Demo**: http://registration.gerard.space (updated from master automatically. Running on Heroku free dyno)
 
@@ -54,6 +56,8 @@ You can replace the email backend easily. See more [here](https://djangopackages
 - **DOMAIN**(optional): Domain where app will be running. Default: localhost:8000
 - **SL_TOKEN**(optional): Slack token to invite hackers automatically on confirmation. You can obtain it [here](https://api.slack.com/custom-integrations/legacy-tokens)
 - **SL_TEAM**(optional): Slack team name (xxx on xxx.slack.com)
+- **DROPBOX_OAUTH2_TOKEN**(optional): Enables Dropbox as file upload server instead of local computer. (See "Set up Dropbox storage for uploaded files" below)
+- **MLH_CLIENT_SECRET**(optional): Enables MyMLH as a sign up option. Format is `client_id@client_secret` (See "Set up MyMLH" below)
 
 
 ## Server
@@ -141,6 +145,29 @@ Hackers data is really important. To ensure that you don't lose any data we enco
 
 Find the script and usage instructions [here](https://github.com/casassg/PostgreSQL-Dropbox-Backup)
 
+#### Set up Dropbox storage for uploaded files
+
+This will need to be used for Heroku or some Docker deployments. File uploads sometimes don't work properly on containerized systems. 
+
+1. Create a [new Dropbox app](https://www.dropbox.com/developers/apps)
+2. Generate Access token [here](https://blogs.dropbox.com/developers/2014/05/generate-an-access-token-for-your-own-account/)
+3. Set token as environment variable **DROPBOX_OAUTH2_TOKEN**
+
+#### Set up MyMLH
+
+MyMLH is a centralized login system used by MLH.  It makes it easier for hackers to sign up for more events without re-entering their data every time around.
+
+This integration allows hackers to have part of their application completed using their information from MLH.
+
+As of the moment, MyMLH can only be used to sign up. This decision is due to the fact that MyMLH can have accounts with emails not verified. This can be a security concern as someone could create an account with someone else's email and it would totally invalidate our verification email system.
+In that direction the approach taken is to extract fields and use them for the application during the sign up process. 
+
+1. Create a [new MyMLH app](https://my.mlh.io/oauth/applications/new).
+2. Add `https://DOMAIN//user/callback/mlh/` as a Redirect URI. Replace `DOMAIN` for the domain used to deploy your system. Ex: `http://registration.gerard.space/user/callback/mlh/`.
+3. Set **MLH_CLIENT_SECRET** using the strings in `Application ID` and `Secret` fields, concatenated with a `@`. Ex: `application_id@secret`.
+
+Note that to test locally you will need to add a line where `DOMAIN` is `localhost:8000`.
+
 #### Set up nginx
 
 Needs: Nginx
@@ -201,14 +228,33 @@ server {
 - **is_director**: Allows user to send invites to hackers as well as send reimbursement.
 - **is_admin**: Allows user to enter Django Admin interface
 
+### Important SQL queries
 
+Here are several queries that may be useful during the hackathon application process. 
+
+1. `source ./env/bin/activate`
+2. `python manage.py dbshell`
+3. Run SQL query
+4. Extract results
+
+#### Missing applications emails
+
+Emails from users that have registered but have not completed the application.
+
+```sql
+SELECT u.email
+FROM user_user u
+WHERE NOT is_director AND NOT is_volunteer AND NOT is_organizer
+AND u.id NOT IN 
+(SELECT a.user_id FROM applications_application a);
+```
 
 ## Use in your hackathon
 
 You can use this for your own hackathon. How?
 
 - Fork this repo
-- Update [app/hackathon_variable.py](app/hackathon_variable.py)
+- Update [app/hackathon_variables.py](app/hackathon_variables.py)
 - Get SendGrid API Key (Sign up to [GitHub Student Pack](https://education.github.com/pack) to get 15K mails a months for being an student)
 - Deploy into your server or in Heroku (see above)!
 
@@ -230,8 +276,8 @@ You can update emails related to
 - User registration (email verification, password reset) at [reimbursement/templates/mails/](reimbursement/templates/mails/)
 
 #### Update hackathon variables
-Check all available variables at [app/hackathon_variable.py.template](app/hackathon_variable.py.template). 
-You can set the ones that you prefer at [app/hackathon_variable.py](app/hackathon_variable.py)
+Check all available variables at [app/hackathon_variables.py.template](app/hackathon_variables.py.template). 
+You can set the ones that you prefer at [app/hackathon_variables.py](app/hackathon_variables.py)
 
 #### Update registration form
 You can change the form, titles, texts in [applications/forms.py](applications/forms.py)
@@ -239,7 +285,7 @@ You can change the form, titles, texts in [applications/forms.py](applications/f
 #### Update application model
 If you need extra labels for your hackathon, you can change the model and add your own fields.
 
-   - Update model with specific fields:[applications/models.py](applications/models.py)
+   - Update model with specific fields: [applications/models.py](applications/models.py)
    - `python manage.py makemigrations`
    - `python manage.py migrate`
 

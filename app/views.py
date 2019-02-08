@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -11,6 +12,8 @@ def root_view(request):
         return HttpResponseRedirect(reverse('account_signup'))
     if not request.user.is_authenticated() and utils.is_app_closed():
         return HttpResponseRedirect(reverse('account_login'))
+    if not request.user.has_usable_password():
+        return HttpResponseRedirect(reverse('set_password'))
     if not request.user.email_verified:
         return HttpResponseRedirect(reverse('verify_email_required'))
     if request.user.is_organizer:
@@ -21,6 +24,9 @@ def root_view(request):
 
 
 def code_conduct(request):
+    code_link = getattr(settings, 'CODE_CONDUCT_LINK', None)
+    if code_link:
+        return HttpResponseRedirect(code_link)
     return render(request, 'code_conduct.html')
 
 

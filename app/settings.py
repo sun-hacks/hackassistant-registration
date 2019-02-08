@@ -48,10 +48,14 @@ INSTALLED_APPS = [
     'applications',
     'teams',
     'stats',
+    'storages',
 ]
 
 if REIMBURSEMENT_ENABLED:
     INSTALLED_APPS.append('reimbursement')
+
+if HARDWARE_ENABLED:
+    INSTALLED_APPS.append('hardware')
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -101,7 +105,7 @@ DATABASES = {
 }
 
 if os.environ.get('DATABASE_URL', None):
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 if os.environ.get('PG_PWD', None):
     DATABASES = {
@@ -173,6 +177,11 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 MEDIA_ROOT = 'files'
 MEDIA_URL = '/files/'
 
+if os.environ.get('DROPBOX_OAUTH2_TOKEN', False):
+    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+    DROPBOX_OAUTH2_TOKEN = os.environ.get('DROPBOX_OAUTH2_TOKEN', False)
+    DROPBOX_ROOT_PATH = HACKATHON_DOMAIN.replace('.', '_')
+
 # Sendgrid API key
 SENDGRID_API_KEY = os.environ.get('SG_KEY', None)
 
@@ -220,6 +229,18 @@ else:
             'LOCATION': os.path.join(BASE_DIR, 'cache'),
         }
     }
+
+OAUTH_PROVIDERS = {
+    'mlh': {
+        'auth_url': 'https://my.mlh.io/oauth/authorize',
+        'token_url': 'https://my.mlh.io/oauth/token',
+        'id': os.environ.get('MLH_CLIENT_SECRET', '').split('@')[0],
+        'secret': os.environ.get('MLH_CLIENT_SECRET', '@').split('@')[1],
+        'scope': 'email+event+education+phone_number',
+        'user_url': 'https://my.mlh.io/api/v2/user.json'
+
+    }
+}
 
 # Add domain to allowed hosts
 ALLOWED_HOSTS.append(HACKATHON_DOMAIN)
