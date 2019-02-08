@@ -11,7 +11,7 @@ from app.views import TabsView
 from applications import models
 from checkin.models import CheckIn
 from checkin.tables import ApplicationsCheckInTable, ApplicationCheckinFilter, RankingListTable
-from user.mixins import IsVolunteerMixin, IsOrganizerMixin
+from user.mixins import IsVolunteerMixin
 from user.models import User
 
 
