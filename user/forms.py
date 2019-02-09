@@ -42,7 +42,8 @@ class RegisterForm(LoginForm):
         addr = self.cleaned_data.get("email")
         if "yahoo." in addr or "rocketmail.com" in addr or "ymail.com" in addr:
             raise forms.ValidationError("We are having deliverability problems with Yahoo addresses."
-                "Please use another email address, e.g school email.)")
+                "Please use another email address, e.g school email.)"
+            )
 
         return addr
 
