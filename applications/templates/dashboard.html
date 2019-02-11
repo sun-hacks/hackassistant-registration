@@ -60,8 +60,8 @@
         {% elif application.answered_invite %}
 
             <div class="col-md-4">
-                <img class="img-responsive" style="padding: 0; border: 50px solid transparent; border-image: url(https://2018.hacktheburgh.com/static/img/logo-htb-print.png) 15% stretch;"
-                     src="http://chart.googleapis.com/chart?cht=qr&chs=350x350&chld=H|0&chl={{ application.uuid_str }}"/>
+                <img class="img-responsive "
+                     src="http://chart.googleapis.com/chart?cht=qr&chs=350x350&chld=L|0&chl={{ application.uuid_str }}"/>
             </div>
             <div class="col-md-8">
                 <p>Thank you {{ user.get_full_name }} for confirming your attendance
