@@ -146,6 +146,13 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             raise forms.ValidationError("Please tell us your specific dietary requirements")
         return data
 
+    def clean_other_gender(self):
+        data = self.cleaned_data['other_gender']
+        gender = self.cleaned_data['gender']
+        if gender == 'O' and not data:
+            raise forms.ValidationError("Please enter this field or select 'Prefer not to answer'")
+        return data
+
     def __getitem__(self, name):
         item = super(ApplicationForm, self).__getitem__(name)
         item.field.disabled = not self.instance.can_be_edit()
@@ -155,7 +162,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fieldsets ordered and with description
         self._fieldsets = [
             ('Personal Info',
-             {'fields': ('university', 'degree', 'graduation_year', 'gender',
+             {'fields': ('university', 'degree', 'graduation_year', 'gender', 'other_gender',
                          'phone_number', 'tshirt_size', 'diet', 'other_diet'),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
             ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
