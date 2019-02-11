@@ -1,0 +1,24 @@
+version: '3.2'
+services:
+  web:
+    build: .
+    # image: hreeder/hackassistant-registration:alpha
+    # command: gunicorn --workers 3 -b 0.0.0.0:80 app.wsgi:application
+    command: ./manage.py runserver 0.0.0.0:80
+    volumes:
+      - .:/usr/src/app
+    environment:
+      PROD_MODE: "False"
+      SECRET: mysecretgoeshere
+      EMAIL_HOST: smtp.mailgun.org
+      EMAIL_HOST_USER: postmaster@mg.comp-soc.com
+      EMAIL_HOST_PASSWORD: asdfasdfasdf7
+      DATABASE_URL: postgres://reg:reg@db/reg
+      DOMAIN: localhost:85
+    ports:
+      - 85:80
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: reg
+      POSTGRES_PASSWORD: reg
