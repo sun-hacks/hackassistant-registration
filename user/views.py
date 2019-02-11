@@ -230,7 +230,7 @@ def callback(request, provider=None):
         draft = a_models.DraftApplication()
         draft.user = user
         mlhdiet = mlhuser.get('dietary_restrictions', '')
-        diet = mlhdiet if mlhdiet in dict(a_models.DIETS).keys() else 'Others'
+        diet = mlhdiet if mlhdiet in dict(a_models.DIETS).keys() else 'Other'
         draft.save_dict({
             'degree': mlhuser.get('major', ''),
             'university': mlhuser.get('school', {}).get('name', ''),
