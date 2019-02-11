@@ -46,7 +46,7 @@ HACKATHON_LIVE_PAGE = 'https://hacktheburgh.com/live'
 REGEX_HACKATHON_ORGANIZER_EMAIL = '^.*@hacktheburgh\.com$'
 
 # (OPTIONAL) Sends 500 errors to email whilst in production mode.
-HACKATHON_DEV_EMAILS = ['me@qaisjp.com']
+HACKATHON_DEV_EMAILS = ['me@qaisjp.com', 'techsec@comp-soc.com']
 
 # Reimbursement configuration
 REIMBURSEMENT_ENABLED = True
