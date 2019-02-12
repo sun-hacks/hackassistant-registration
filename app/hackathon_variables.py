@@ -32,13 +32,13 @@ HACKATHON_GITHUB_REPO = 'https://github.com/compsoc-edinburgh/hackassistant-regi
 HACKATHON_APP_DEADLINE = timezone.datetime(2019, 3, 1, 17, 30, tzinfo=timezone.pytz.timezone(TIME_ZONE))
 
 # (OPTIONAL) When to arrive at the hackathon
-HACKATHON_ARRIVE = 'Registration opens at 9:00 AM and closes at 10:30 AM on Saturday March 10th, ' \
+HACKATHON_ARRIVE = 'Registration opens at 9:00 AM and closes at 10:30 AM on Saturday March 16th, ' \
                    'the opening ceremony will be at 11:00 am. If you intend to arrive later, please ' \
                    'let us know so that we can save your spot in the hackathon.'
 
 # (OPTIONAL) When to arrive at the hackathon
-HACKATHON_LEAVE = 'Closing ceremony will be held on Sunday March 11th from 3:00 PM to 5:00 PM. ' \
-                  'The project demo fair will be held in the afternoon from 1:00 PM to 2:00 PM.'
+HACKATHON_LEAVE = 'Closing ceremony will be held on Sunday March 17th from 2:30 PM to 5:30 PM. ' \
+                  'The project demo fair will be held in the afternoon from 1:30 PM to 3:00 PM.'
 # (OPTIONAL) Hackathon live page
 HACKATHON_LIVE_PAGE = 'https://hacktheburgh.com/live'
 
