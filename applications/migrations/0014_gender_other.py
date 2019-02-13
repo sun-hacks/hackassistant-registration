@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='application',
             name='other_gender',
-            field=models.CharField(blank=True, max_length=20, null=True),
+            field=models.CharField(blank=True, max_length=50, null=True),
         ),
         migrations.AlterField(
             model_name='application',
             name='gender',
-            field=models.CharField(choices=[('NA', 'Prefer not to answer'), ('M', 'Male'), ('F', 'Female'), ('NB', 'Non-binary'), ('X', 'Other')], default='NA', max_length=20),
+            field=models.CharField(choices=[('NA', 'Prefer not to answer'), ('M', 'Male'), ('F', 'Female'), ('NB', 'Non-binary'), ('X', 'Prefer to self-describe')], default='NA', max_length=23),
         ),
     ]
