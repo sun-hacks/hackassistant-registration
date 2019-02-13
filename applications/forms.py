@@ -68,6 +68,10 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                       "hackathons in-line with the <a href='https://mlh.io/privacy' "
                                       "target='_blank'>MLH Privacy Policy</a>.", )
 
+    sponsor_consent = forms.BooleanField(required=False,
+                                         label="I authorize you to share my resume, uploaded as part "
+                                         "of this application, with sponsors of the event.", )
+
     mlh_consent = forms.BooleanField(required=False,
                                      label="I further agree to the terms"
                                      " of both the <a target='_blank' href='"
@@ -98,6 +102,10 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     def clean_data_consent(self):
         cc = self.cleaned_data.get('data_consent', False)
+        return cc
+
+    def clean_sponsor_consent(self):
+        cc = self.cleaned_data.get('sponsor_consent', False)
         return cc
 
     def clean_mlh_consent(self):
@@ -210,8 +218,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fields that we only need the first time the hacker fills the application
         # https://stackoverflow.com/questions/9704067/test-if-django-modelform-has-instance
         if not self.instance.pk:
-            self._fieldsets.append(('Legal', {'fields': ('code_conduct',
-                                                         'data_consent', 'mlh_consent', 'under_age')}))
+            self._fieldsets.append(('Legal', {'fields': ('code_conduct', 'mlh_consent',
+                                                         'data_consent', 'sponsor_consent', 'under_age')}))
         return super(ApplicationForm, self).fieldsets
 
     class Meta:
