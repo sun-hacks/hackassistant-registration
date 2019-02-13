@@ -69,8 +69,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                       "target='_blank'>MLH Privacy Policy</a>.", )
 
     sponsor_consent = forms.BooleanField(required=False,
-                                         label="I authorize you to share my resume, uploaded as part "
-                                         "of this application, with sponsors of the event.", )
+                                         label="I would like my CV, name, and year of "
+                                         "graduation to be shared with the event sponsors.", )
 
     mlh_consent = forms.BooleanField(required=False,
                                      label="I further agree to the terms"
