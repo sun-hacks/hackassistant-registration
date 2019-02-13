@@ -56,24 +56,26 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         label='I declare that I am at least 18 years of age.',
     )
 
-    extraLegalText = (
-        "I authorize you to share my application/registration information "
-        "for event administration, ranking, MLH administration, pre- and "
-        "post-event informational emails, and occasional messages about "
-        "hackathons in-line with the MLH Privacy Policy. Furthermore, I agree "
-        "to the terms of both the <a target='_blank' href='"
-        "https://github.com/MLH/mlh-policies/blob/master/"
-        "prize-terms-and-conditions/contest-terms.md'"
-        ">MLH Contest Terms and Conditions</a> "
-        "and the <a target='_blank' href='https://mlh.io/privacy'>"
-        "MLH Privacy Policy</a>."
-    )
-
     code_conduct = forms.BooleanField(required=False,
                                       label='I have read and agree to the '
-                                            '<a href="%s" target="_blank">MLH Code of Conduct</a>. %s' % (
-                                                getattr(settings, 'CODE_CONDUCT_LINK', '/code_conduct'),
-                                                extraLegalText), )
+                                            '<a href="%s" target="_blank">MLH Code of Conduct</a>.' %
+                                      getattr(settings, 'CODE_CONDUCT_LINK', '/code_conduct'), )
+
+    data_consent = forms.BooleanField(required=False,
+                                      label="I authorize you to share my application/registration information "
+                                      "for event administration, ranking, MLH administration, pre- and "
+                                      "post-event informational emails, and occasional messages about "
+                                      "hackathons in-line with the <a href='https://mlh.io/privacy' "
+                                      "target='_blank'>MLH Privacy Policy</a>.", )
+
+    mlh_consent = forms.BooleanField(required=False,
+                                     label="I further agree to the terms"
+                                     " of both the <a target='_blank' href='"
+                                     "https://github.com/MLH/mlh-policies/blob/master/"
+                                     "prize-terms-and-conditions/contest-terms.md'"
+                                     ">MLH Contest Terms and Conditions</a> "
+                                     "and the <a target='_blank' href='https://mlh.io/privacy'>"
+                                     "MLH Privacy Policy</a>.", )
 
     def clean_resume(self):
         resume = self.cleaned_data['resume']
@@ -90,8 +92,24 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # https://stackoverflow.com/questions/9704067/test-if-django-modelform-has-instance
         if not cc and not self.instance.pk:
             raise forms.ValidationError(
-                "To attend %s you must abide by our code of conduct, agree to these"
-                " terms and conditions, and the privacy policy." % settings.HACKATHON_NAME
+                "To attend %s you must abide by our code of conduct." % settings.HACKATHON_NAME
+            )
+        return cc
+
+    def clean_data_consent(self):
+        cc = self.cleaned_data.get('data_consent', False)
+        if not cc and not self.instance.pk:
+            raise forms.ValidationError(
+                "To attend %s you must agree to our data processing policy." % settings.HACKATHON_NAME
+            )
+        return cc
+
+    def clean_mlh_consent(self):
+        cc = self.cleaned_data.get('mlh_consent', False)
+        if not cc and not self.instance.pk:
+            raise forms.ValidationError(
+                "To attend %s you must agree to MLH's"
+                " privacy policy and terms and conditions." % settings.HACKATHON_NAME
             )
         return cc
 
@@ -196,7 +214,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fields that we only need the first time the hacker fills the application
         # https://stackoverflow.com/questions/9704067/test-if-django-modelform-has-instance
         if not self.instance.pk:
-            self._fieldsets.append(('Code of Conduct', {'fields': ('code_conduct', 'under_age')}))
+            self._fieldsets.append(('Legal', {'fields': ('code_conduct',
+                                                         'data_consent', 'mlh_consent', 'under_age')}))
         return super(ApplicationForm, self).fieldsets
 
     class Meta:
