@@ -12,7 +12,7 @@ TIME_ZONE = 'GMT'
 # This description will be used on the html and sharing meta tags
 HACKATHON_DESCRIPTION = 'The hackathon from beyond the wall will be back from the 16th to 17th of March, in the Informatics Forum.'
 # Domain where application is deployed, can be set by env variable
-HACKATHON_DOMAIN = os.environ.get('DOMAIN', 'localhost:8000')
+HACKATHON_DOMAIN = os.environ.get('DOMAIN', 'hacktheburgh.com')
 # Hackathon contact email: where should all hackers contact you. It will also be used as a sender for all emails
 HACKATHON_CONTACT_EMAIL = 'hello@hacktheburgh.com'
 # Hackathon logo url, will be used on all emails
