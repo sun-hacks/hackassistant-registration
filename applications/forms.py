@@ -10,6 +10,12 @@ from applications import models
 
 
 class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
+    legal_name = forms.CharField(required=True,
+                                 label='What is your legal name?',
+                                 help_text='As shown on your government ID.',
+                                 widget=forms.TextInput(
+                                     attrs={'class': 'form-control',
+                                            'placeholder': 'John Biene'}))
     github = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
                'placeholder': 'https://github.com/johnBiene'}))
@@ -162,7 +168,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fieldsets ordered and with description
         self._fieldsets = [
             ('Personal Info',
-             {'fields': ('university', 'degree', 'graduation_year', 'gender', 'other_gender',
+             {'fields': ('legal_name', 'university', 'degree', 'graduation_year', 'gender', 'other_gender',
                          'phone_number', 'tshirt_size', 'diet', 'other_diet'),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
             ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
