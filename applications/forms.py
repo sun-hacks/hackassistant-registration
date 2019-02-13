@@ -98,10 +98,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     def clean_data_consent(self):
         cc = self.cleaned_data.get('data_consent', False)
-        if not cc and not self.instance.pk:
-            raise forms.ValidationError(
-                "To attend %s you must agree to our data processing policy." % settings.HACKATHON_NAME
-            )
         return cc
 
     def clean_mlh_consent(self):
