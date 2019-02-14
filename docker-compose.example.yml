@@ -9,6 +9,7 @@ services:
       - .:/usr/src/app
     environment:
       PROD_MODE: "False"
+      DATABASE_SECURE: "false"
       SECRET: mysecretgoeshere
       EMAIL_HOST: smtp.mailgun.org
       EMAIL_HOST_USER: postmaster@mg.comp-soc.com
