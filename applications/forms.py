@@ -61,17 +61,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                             '<a href="%s" target="_blank">MLH Code of Conduct</a>.' %
                                       getattr(settings, 'CODE_CONDUCT_LINK', '/code_conduct'), )
 
-    data_consent = forms.BooleanField(required=False,
-                                      label="I authorize you to share my application/registration information "
-                                      "for event administration, ranking, MLH administration, pre- and "
-                                      "post-event informational emails, and occasional messages about "
-                                      "hackathons in-line with the <a href='https://mlh.io/privacy' "
-                                      "target='_blank'>MLH Privacy Policy</a>.", )
-
-    sponsor_consent = forms.BooleanField(required=False,
-                                         label="I would like my CV, name, and year of "
-                                         "graduation to be shared with the event sponsors.", )
-
     mlh_consent = forms.BooleanField(required=False,
                                      label="I further agree to the terms"
                                      " of both the <a target='_blank' href='"
@@ -80,6 +69,28 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                                      ">MLH Contest Terms and Conditions</a> "
                                      "and the <a target='_blank' href='https://mlh.io/privacy'>"
                                      "MLH Privacy Policy</a>.", )
+
+    data_consent = forms.TypedChoiceField(
+        required=False,
+        label="I authorize you to share my application/registration information "
+                "for event administration, ranking, MLH administration, pre- and "
+                "post-event informational emails, and occasional messages about "
+                "hackathons in-line with the MLH Privacy Policy.",
+        coerce=lambda x: x == 'True',
+        choices=((False, 'No'), (True, 'Yes')),
+        initial=False,
+        widget=forms.RadioSelect
+    )
+
+    sponsor_consent = forms.TypedChoiceField(
+        required=False,
+        label="I would like my CV, name, and year of "
+                "graduation to be shared with the event sponsors.",
+        coerce=lambda x: x == 'True',
+        choices=((False, 'No'), (True, 'Yes')),
+        initial=False,
+        widget=forms.RadioSelect
+    )
 
     def clean_resume(self):
         resume = self.cleaned_data['resume']
