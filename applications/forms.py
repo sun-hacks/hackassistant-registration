@@ -72,10 +72,12 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     data_consent = forms.TypedChoiceField(
         required=False,
-        label="I authorize you to share my application/registration information "
-                "for event administration, ranking, MLH administration, pre- and "
-                "post-event informational emails, and occasional messages about "
-                "hackathons in-line with the MLH Privacy Policy.",
+        label=(
+            "I authorize you to share my application/registration information "
+            "for event administration, ranking, MLH administration, pre- and "
+            "post-event informational emails, and occasional messages about "
+            "hackathons in-line with the MLH Privacy Policy."
+        ),
         coerce=lambda x: x == 'True',
         choices=((False, 'No'), (True, 'Yes')),
         initial=False,
@@ -84,8 +86,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
 
     sponsor_consent = forms.TypedChoiceField(
         required=False,
-        label="I would like my CV, name, and year of "
-                "graduation to be shared with the event sponsors.",
+        label="I would like my CV, name, and year of graduation to be shared with the event sponsors.",
         coerce=lambda x: x == 'True',
         choices=((False, 'No'), (True, 'Yes')),
         initial=False,
