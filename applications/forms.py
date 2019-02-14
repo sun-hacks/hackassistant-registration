@@ -220,6 +220,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         if not self.instance.pk:
             self._fieldsets.append(('Legal', {'fields': ('code_conduct', 'mlh_consent',
                                                          'data_consent', 'sponsor_consent', 'under_age')}))
+        else:
+            self._fieldsets.append(('Legal', {'fields': ('data_consent', 'sponsor_consent')}))
         return super(ApplicationForm, self).fieldsets
 
     class Meta:
