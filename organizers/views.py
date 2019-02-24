@@ -47,7 +47,8 @@ def add_comment(application, user, text):
 def organizer_tabs(user):
     t = [('Applications', reverse('app_list'), False),
          ('Review', reverse('review'),
-          'new' if models.Application.objects.exclude(vote__user_id=user.id).filter(status=APP_PENDING) else '')]
+          'new' if models.Application.objects.exclude(vote__user_id=user.id).filter(status=APP_PENDING) else ''),
+         ('Review concealed', reverse('review') + "?conceal_names=True", False)]
     if user.is_director:
         t.append(('Invite', reverse('invite_list'), False))
     return t
@@ -127,6 +128,12 @@ class ApplicationDetailView(TabsViewMixin, IsOrganizerMixin, TemplateView):
         application = self.get_application(kwargs)
         context['app'] = application
         context['vote'] = self.can_vote()
+
+        conceal_names = self.request.GET.get('conceal_names', None)
+        if conceal_names is not None:
+            conceal_names = True
+        context['conceal_names'] = conceal_names
+
         context['comments'] = models.ApplicationComment.objects.filter(application=application)
         if application and getattr(application.user, 'team', False) and settings.TEAMS_ENABLED:
             context['teammates'] = Team.objects.filter(team_code=application.user.team.team_code) \
@@ -246,6 +253,9 @@ class ReviewApplicationView(ApplicationDetailView):
         pers_vote = request.POST.get('pers_rat', None)
         comment_text = request.POST.get('comment_text', None)
         application = models.Application.objects.get(pk=request.POST.get('app_id'))
+        conceal_names = request.POST.get('conceal_names', None)
+        if conceal_names is not None:
+            conceal_names = "?conceal_names=True"
         try:
             if request.POST.get('skip'):
                 add_vote(application, request.user, None, None)
@@ -257,7 +267,7 @@ class ReviewApplicationView(ApplicationDetailView):
         # application
         except IntegrityError:
             pass
-        return HttpResponseRedirect(reverse('review'))
+        return HttpResponseRedirect(reverse('review') + conceal_names)
 
     def can_vote(self):
         return True

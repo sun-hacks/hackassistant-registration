@@ -23,7 +23,9 @@
                 </dt>
                 <dd></dd>
                 {% include 'include/field.html' with desc='Lenny face' value=app.lennyface %}
+                {% if not conceal_names %}
                 {% include 'include/field.html' with desc='Name' value=app.user.name %}
+                {% endif %}
                 {% include 'include/field.html' with desc='Submitted' value=app.submission_date|naturaltime %}
                 {% include 'include/field.html' with desc='Country' value=app.origin_country %}
                 {% if not vote %}
@@ -146,6 +148,7 @@
             <form action="" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="app_id" value="{{ app.pk }}"/>
+                <input type="hidden" name="conceal_names" value="{{ conceal_names }}"
                 <h4 class="text-center">Score</h4>
                 <dl class="dl-horizontal">
                     <dt>Technical Skills</dt>
