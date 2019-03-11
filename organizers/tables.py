@@ -40,12 +40,14 @@ class ApplicationsListTable(tables.Table):
         "<a href='{% url 'app_detail' record.uuid %}'>Detail</a> ",
         verbose_name='Actions', orderable=False)
     origin = tables.Column(accessor='origin', verbose_name='Origin')
+    data_consent = tables.BooleanColumn(accessor='data_consent', verbose_name='MLH')
+    sponsor_consent = tables.BooleanColumn(accessor='sponsor_consent', verbose_name='CVshare')
 
     class Meta:
         model = Application
         attrs = {'class': 'table table-hover'}
         template = 'django_tables2/bootstrap-responsive.html'
-        fields = ['user.name', 'user.email', 'vote_avg', 'university', 'origin']
+        fields = ['user.name', 'user.email', 'vote_avg', 'university', 'origin', 'data_consent', 'sponsor_consent']
         empty_text = 'No applications available'
         order_by = '-vote_avg'
 
