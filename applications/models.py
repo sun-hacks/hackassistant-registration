@@ -95,7 +95,7 @@ TSHIRT_SIZES = [
 ]
 DEFAULT_TSHIRT_SIZE = T_M
 
-YEARS = [(int(size), size) for size in ('2018 2019 2020 2021 2022 2023 2024'.split(' '))]
+YEARS = [(int(size), size) for size in ('2019 2020 2021 2022 2023 2024'.split(' '))]
 DEFAULT_YEAR = 2018
 
 

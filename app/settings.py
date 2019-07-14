@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET', ')6+vf9(1tihg@u8!+(0abk+y*#$3r$(-d=g5qhm@1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('PROD_MODE', "false").lower() == "false"
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'my.hacktheburgh.com', '178.128.34.63']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'register.sunhacks.io', '178.128.34.63']
 
 # Application definition
 INSTALLED_APPS = [
@@ -202,13 +202,13 @@ AWS_SES_REGION_NAME = os.environ.get('AWS_SES_REGION_NAME', None)
 AWS_SES_REGION_ENDPOINT = os.environ.get('AWS_SES_REGION_ENDPOINT', None)
 
 # Load filebased email backend if no Sendgrid credentials and debug mode
-if not SENDGRID_API_KEY and not EMAIL_HOST and DEBUG:
+if not SENDGRID_API_KEY and not EMAIL_HOST and not AWS_ACCESS_KEY_ID and DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = 'tmp/email-messages/'
 else:
     if SENDGRID_API_KEY:
         EMAIL_BACKEND = "sgbackend.SendGridBackend"
-    else if AWS_ACCESS_KEY_ID:
+    elif AWS_ACCESS_KEY_ID:
         EMAIL_BACKEND = 'django_ses.SESBackend'
     else:
         EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

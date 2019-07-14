@@ -1,5 +1,5 @@
 body {
-    background: rgb(146, 24, 19); /*linear-gradient(#020913 0%, #00121E 19%, #001F3A 28%, #063651 56%, #2B546B 71%, #827C6C 100%) no-repeat center center fixed;*/
+    background: linear-gradient(#fd8a35 0%, #ffd047 100%) no-repeat center center fixed;
     background-size: cover;
     font-family: 'Roboto', Helvetica, sans-serif;
     font-size: 15px;
@@ -148,6 +148,20 @@ img.icon {
 
 .btn-block {
     margin-top: 5px;
+}
+
+.btn-sh-pink {
+    background-color: #ff9089;
+    border: 0px;
+    transition: all 0.23s ease-in-out 0s;
+}
+
+.btn-sh-pink:hover {
+    background-color: #e04861;
+}
+
+.btn-log-in {
+    color: #e04861;
 }
 
 .col-centered {

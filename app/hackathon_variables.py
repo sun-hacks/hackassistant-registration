@@ -65,11 +65,11 @@ CODE_CONDUCT_LINK = "https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
 
 # (OPTIONAL) Slack credentials
 # Highly recommended to create a separate user account to extract the token from
-# SLACK = {
-#     'team': os.environ.get('SL_TEAM', 'test'),
-#     # Get it here: https://api.slack.com/custom-integrations/legacy-tokens
-#     'token': os.environ.get('SL_TOKEN', None)
-# }
+SLACK = {
+    'team': os.environ.get('SL_TEAM', 'test'),
+    # Get it here: https://api.slack.com/custom-integrations/legacy-tokens
+    'token': os.environ.get('SL_TOKEN', None)
+}
 
 # (OPTIONAL) Logged in cookie
 # This allows to store an extra cookie in the browser to be shared with other application on the same domain
