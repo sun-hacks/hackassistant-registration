@@ -22,10 +22,10 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     site = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'https://biene.space'}))
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': '+############'}))
+        attrs={'class': 'form-control', 'placeholder': '##########'}))
     university = forms.CharField(required=True,
                                  label='What university do you study at?',
-                                 help_text='Current or most recent school you attended.',
+                                 help_text='Current or most recent school you attended',
                                  widget=forms.TextInput(
                                      attrs={'class': 'typeahead-schools', 'autocomplete': 'off'}))
 
@@ -196,8 +196,9 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         # Fieldsets ordered and with description
         self._fieldsets = [
             ('Personal Info',
-             {'fields': ('university', 'degree', 'graduation_year', 'gender', 'other_gender',
-                         'phone_number', 'tshirt_size', 'diet', 'other_diet'),
+             {'fields': ('university', 'degree', 'education', 'graduation_year', 'gender', 'other_gender',
+                         'ethnicity', 'other_ethnicity', 'phone_number',
+                         'tshirt_size', 'diet', 'other_diet'),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
             ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
             ('Show us what you\'ve built',
@@ -239,7 +240,9 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     class Meta:
         model = models.Application
         help_texts = {
-            'gender': 'This is for demographic purposes.',
+            'education': 'Current or most recent level of education',
+            'gender': 'This is for demographic purposes',
+            'ethnicity': 'This is also for demographic purposes',
             'graduation_year': 'What year have you graduated on or when will '
                                'you graduate',
             'degree': 'What\'s your major/degree?',
@@ -257,8 +260,11 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         }
 
         labels = {
+            'education': 'What level of education are you enrolled in?',
             'gender': 'What gender do you identify as?',
             'other_gender': 'Self-describe',
+            'ethnicity': 'What ethnicity do you identify as?',
+            'other_ethnicity': 'Self-describe',
             'graduation_year': 'What year will you graduate?',
             'tshirt_size': 'What\'s your t-shirt size?',
             'diet': 'Dietary requirements',

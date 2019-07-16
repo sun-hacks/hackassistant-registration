@@ -46,6 +46,34 @@ GENDERS = [
     (GENDER_OTHER, 'Prefer to self-describe'),
 ]
 
+INDIAN = "IN"
+ASIAN = "AS"
+BLACK = "BK"
+HISPANIC = "HS"
+WHITE = "WH"
+E_NO_ANSWER = "NA"
+E_OTHER = "X"
+
+ETHNICITIES = [
+    (INDIAN, "American Indian or Alaskan Native"),
+    (ASIAN, "Asian/Pacific Islander"),
+    (BLACK, "Black or African American"),
+    (HISPANIC, "Hispanic"),
+    (WHITE, "White/Caucasian"),
+    (E_OTHER, "Multiple Ethnicity/Other (Please Specify)"),
+    (E_NO_ANSWER, "Prefer not to answer"),
+]
+
+HIGHSCHOOL = "HS"
+UNDERGRAD = "UG"
+GRAD = "GR"
+
+STUDY_LEVEL = [
+    (HIGHSCHOOL, "High School"),
+    (UNDERGRAD, "Undergraduate"),
+    (GRAD, "Graduate"),
+]
+
 D_NONE = 'None'
 D_VEGETERIAN = 'Vegeterian'
 D_VEGAN = 'Vegan'
@@ -95,7 +123,7 @@ TSHIRT_SIZES = [
 ]
 DEFAULT_TSHIRT_SIZE = T_M
 
-YEARS = [(int(size), size) for size in ('2019 2020 2021 2022 2023 2024'.split(' '))]
+YEARS = [(int(size), size) for size in ('2019 2020 2021 2022 2023'.split(' '))] + [(2024, "2024 or later")]
 DEFAULT_YEAR = 2018
 
 
@@ -117,6 +145,11 @@ class Application(models.Model):
     # Population analysis, optional
     gender = models.CharField(max_length=23, choices=GENDERS, default=NO_ANSWER)
     other_gender = models.CharField(max_length=50, blank=True, null=True)
+
+    ethnicity = models.CharField(max_length=23, choices=ETHNICITIES, default=E_NO_ANSWER)
+    other_ethnicity = models.CharField(max_length=50, blank=True, null=True)
+
+    education = models.CharField(max_length=23, choices=STUDY_LEVEL, default=UNDERGRAD)
 
     # Personal data (asking here because we don't want to ask birthday)
     under_age = models.BooleanField()

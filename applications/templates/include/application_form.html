@@ -65,6 +65,12 @@
               return gender.val() === 'X';
             })
 
+            var other_ethnicity = $('#id_other_ethnicity');
+            var ethnicity = $('#id_ethnicity');
+            conditional_field(other_ethnicity, ethnicity, () => {
+              return ethnicity.val() === 'X';
+            })
+
             var other_diet = $('#id_other_diet');
             var diet = $('#id_diet');
             conditional_field(other_diet, diet, function () {
