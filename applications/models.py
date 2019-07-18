@@ -173,7 +173,7 @@ class Application(models.Model):
     # Why do you want to come to X?
     description = models.TextField(max_length=1500)
     # Explain a little bit what projects have you done lately
-    projects = models.TextField(max_length=1500, blank=True, null=True)
+    projects = models.TextField(max_length=1500, null=True)
 
     # Reimbursement
     reimb = models.BooleanField(default=False)
