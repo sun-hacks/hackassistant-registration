@@ -24,7 +24,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '##########'}))
 
-    lenny_face = forms.CharField(required=False, widget=forms.TextInput(
+    lennyface = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '( ﾉ ﾟｰﾟ)ﾉ☀'}))
 
     university = forms.CharField(required=True,
