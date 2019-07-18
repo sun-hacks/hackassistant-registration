@@ -24,8 +24,10 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '##########'}))
 
-    lennyface = forms.CharField(required=False, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': '( ﾉ ﾟｰﾟ)ﾉ☀'}))
+    lennyface = forms.CharField(required=False,
+                                label='What is your favorite emoticon? (300 char max, go wild)',
+                                widget=forms.TextInput(
+                                    attrs={'class': 'form-control', 'placeholder': '( ﾉ ﾟｰﾟ)ﾉ☀'}))
 
     university = forms.CharField(required=True,
                                  label='What university do you study at?',
@@ -268,7 +270,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             'origin': 'Where are you joining us from?',
             'description': 'Why are you excited about %s? (1500 char max)' % settings.HACKATHON_NAME,
             'projects': 'What projects have you worked on? (1500 char max)',
-            'lennyface': 'What is your favorite emoticon? (300 char max, go wild)',
             'resume': 'Upload your resume (PDF only)',
             'reimb_amount': 'How much money (%s) would you need to afford traveling to %s?' % (
                 getattr(settings, 'CURRENCY', '$'), settings.HACKATHON_NAME),
