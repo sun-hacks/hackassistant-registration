@@ -6,23 +6,27 @@ from form_utils.forms import BetterModelForm
 
 from app.mixins import OverwriteOnlyModelFormMixin
 from app.utils import validate_url
-from applications import models
 
+from applications import models
 
 class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     github = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
-               'placeholder': 'https://github.com/johnBiene'}))
+               'placeholder': 'https://github.com/sun-hacks'}))
     devpost = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
-               'placeholder': 'https://devpost.com/JohnBiene'}))
+               'placeholder': 'https://devpost.com/sunhacks'}))
     linkedin = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control',
-               'placeholder': 'https://www.linkedin.com/in/john_biene'}))
+               'placeholder': 'https://www.linkedin.com/in/sunhacks'}))
     site = forms.CharField(required=False, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'https://biene.space'}))
+        attrs={'class': 'form-control', 'placeholder': 'https://sunhacks.io'}))
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '##########'}))
+
+    lenny_face = forms.CharField(required=False, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': '( ﾉ ﾟｰﾟ)ﾉ☀'}))
+
     university = forms.CharField(required=True,
                                  label='What university do you study at?',
                                  help_text='Current or most recent school you attended',
@@ -93,14 +97,6 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         widget=forms.RadioSelect
     )
 
-    def clean_resume(self):
-        resume = self.cleaned_data['resume']
-        size = getattr(resume, '_size', 0)
-        if size > settings.MAX_UPLOAD_SIZE:
-            raise forms.ValidationError("Please keep resume size under %s. Current filesize %s" % (
-                filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(size)))
-        return resume
-
     def clean_code_conduct(self):
         cc = self.cleaned_data.get('code_conduct', False)
         # Check that if it's the first submission hackers checks code of conduct checkbox
@@ -156,6 +152,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             raise forms.ValidationError("This field is required.")
         return data
 
+
     def clean_reimb_amount(self):
         data = self.cleaned_data['reimb_amount']
         reimb = self.cleaned_data.get('reimb', False)
@@ -200,7 +197,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
                          'ethnicity', 'other_ethnicity', 'phone_number',
                          'tshirt_size', 'diet', 'other_diet'),
               'description': 'Hey there, before we begin we would like to know a little more about you.', }),
-            ('Hackathons?', {'fields': ('description', 'first_timer', 'projects'), }),
+            ('Hackathons?', {'fields': ('description', 'first_timer', 'projects', 'lennyface'), }),
             ('Show us what you\'ve built',
              {'fields': ('github', 'devpost', 'linkedin', 'site', 'resume'),
               'description': 'Some of our sponsors may use this information for recruitment purposes,'
@@ -269,12 +266,13 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             'tshirt_size': 'What\'s your t-shirt size?',
             'diet': 'Dietary requirements',
             'origin': 'Where are you joining us from?',
-            'description': 'Why are you excited about %s?' % settings.HACKATHON_NAME,
-            'projects': 'What projects have you worked on?',
-            'resume': 'Upload your resume',
+            'description': 'Why are you excited about %s? (1500 char max)' % settings.HACKATHON_NAME,
+            'projects': 'What projects have you worked on? (1500 char max)',
+            'lennyface': 'What is your favorite emoticon? (300 char max, go wild)',
+            'resume': 'Upload your resume (PDF only)',
             'reimb_amount': 'How much money (%s) would you need to afford traveling to %s?' % (
                 getattr(settings, 'CURRENCY', '$'), settings.HACKATHON_NAME),
 
         }
 
-        exclude = ['user', 'uuid', 'invited_by', 'submission_date', 'status_update_date', 'status', 'lennyface', ]
+        exclude = ['user', 'uuid', 'invited_by', 'submission_date', 'status_update_date', 'status', ]

@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import json
 import uuid as uuid
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db import models
@@ -11,6 +12,9 @@ from django.utils import timezone
 
 from app import utils
 from user.models import User
+
+from applications.validators import FileValidator
+
 
 APP_PENDING = 'P'
 APP_REJECTED = 'R'
@@ -177,10 +181,12 @@ class Application(models.Model):
         MinValueValidator(0, "Negative? Really? Please put a positive value")])
 
     # Random lenny face
-    lennyface = models.CharField(max_length=300, default='-.-')
+    lennyface = models.CharField(max_length=300, blank=True, null=True)
 
     # Giv me a resume here!
-    resume = models.FileField(upload_to='resumes', null=True, blank=True)
+    resume = models.FileField(upload_to='resumes', null=True, blank=True,
+        validators=[FileValidator(max_size=settings.MAX_UPLOAD_SIZE,
+            content_types=['pdf'])])
 
     # University
     graduation_year = models.IntegerField(choices=YEARS, default=DEFAULT_YEAR)
