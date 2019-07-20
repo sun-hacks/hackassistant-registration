@@ -120,6 +120,7 @@
                 {% include 'include/status.html' %}
                 <p> When decisions are released, you'll be able to see your results on this page.</p>
                 <p>If you have any questions or concerns, you can still reach us at {{ h_contact_email|urlize }}</p>
+                <p>In the meantime, be sure to invite your friends! Top inviters will get exclusive {{ h_name }} swag at the event. When your friends are registering have them enter the email you used to sign up in the refer a friend section</p>
                  <div class="col-md-5 no-padding">
                     <a href="{% url 'application' %}" class="btn  btn-success btn-block">
                         View{% if application.can_be_edit %}/Edit{% endif %} application

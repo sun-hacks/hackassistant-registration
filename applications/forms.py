@@ -24,6 +24,9 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
     phone_number = forms.CharField(required=False, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': '##########'}))
 
+    referral = forms.CharField(required=False, widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'team@sunhacks.io'}))
+
     lennyface = forms.CharField(required=False,
                                 label='What is your favorite emoticon? (300 char max, go wild)',
                                 widget=forms.TextInput(
@@ -204,6 +207,9 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
              {'fields': ('github', 'devpost', 'linkedin', 'site', 'resume'),
               'description': 'Some of our sponsors may use this information for recruitment purposes,'
               'so please include as much as you can.'}),
+            ('Refer a Friend',
+             {'fields': ('referral',),
+              'description': 'We want to build the hacker community here in Phoenix so we encourage you to invite your friends! If one of your friends inivted you please let us know. We have exclusive swag for top hackers who invite other hackers, so please invite as much as you can.'}),
         ]
         deadline = getattr(settings, 'REIMBURSEMENT_DEADLINE', False)
         r_enabled = getattr(settings, 'REIMBURSEMENT_ENABLED', False)
@@ -248,7 +254,8 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
             'other_diet': 'Please fill here in your dietary requirements. We want to make sure we have food for you!',
             'projects': 'You can talk about about past hackathons, personal projects, awards, and so on. '
                         'We love links, show us your passion!',
-            'reimb_amount': 'We try our best to cover costs for all hackers, but our budget is limited'
+            'reimb_amount': 'We try our best to cover costs for all hackers, but our budget is limited',
+            'referral': "You don't have to fill this out if nobody referred you (but you should go refer other people!)"
         }
 
         widgets = {
@@ -261,6 +268,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
         labels = {
             'education': 'What level of education are you enrolled in?',
             'gender': 'What gender do you identify as?',
+            'referral': 'What is the email of the hacker who referred you?',
             'other_gender': 'Self-describe',
             'ethnicity': 'What ethnicity do you identify as?',
             'other_ethnicity': 'Self-describe',

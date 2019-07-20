@@ -167,6 +167,10 @@ class Application(models.Model):
 
     # Where is this person coming from?
     origin = models.CharField(max_length=300)
+    # Who invited them?
+    referral = models.CharField(blank=True, null=True, max_length=320,
+                                validators=[RegexValidator(regex=r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
+                                                            message="Referral must be a valid email address.")])
 
     # Is this your first hackathon?
     first_timer = models.BooleanField()
