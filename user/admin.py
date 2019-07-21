@@ -7,6 +7,10 @@ from django.contrib.auth.models import Group
 from user import models
 from user.forms import UserChangeForm
 
+import csv
+from django.http import HttpResponse
+
+EXPORT_CSV_FOR_SENDY = ('name','email')
 
 class UserAdmin(admin.ModelAdmin):
     form = UserChangeForm
@@ -44,6 +48,22 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('created_time',)
     date_hierarchy = 'created_time'
     filter_horizontal = ()
+
+    actions = ["export_as_csv"]
+    def export_as_csv(self, request, queryset):
+        meta = self.model._meta
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(EXPORT_CSV_FOR_SENDY)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in EXPORT_CSV_FOR_SENDY])
+
+        return response
+
+    export_as_csv.short_description = "Export to Sendy CSV"
 
     def get_fieldsets(self, request, obj=None):
         if not obj:

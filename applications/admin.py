@@ -6,7 +6,12 @@ from django.utils.timesince import timesince
 
 from applications import models
 
-EXPORT_CSV_FIELDS = ['name', 'lastname', 'university', 'country', 'email']
+import csv
+from django.http import HttpResponse
+
+EXPORT_CSV_FIELDS = ['name', 'email', 'university', 'origin']
+
+EXPORT_CSV_FOR_SENDY = ['name','email']
 
 
 class ApplicationAdmin(admin.ModelAdmin):
@@ -19,6 +24,46 @@ class ApplicationAdmin(admin.ModelAdmin):
                      'description',)
     ordering = ('submission_date',)
     date_hierarchy = 'submission_date'
+
+    actions = ["export_as_sendy","export_as_csv"]
+    def export_as_sendy(self, request, queryset):
+        meta = self.model._meta
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(EXPORT_CSV_FOR_SENDY)
+        for obj in queryset:
+            row = []
+            for field in EXPORT_CSV_FOR_SENDY:
+                if hasattr(getattr(obj,'user'),field):
+                    row.append(getattr(getattr(obj,'user'),field))
+                else:
+                    row.append(getattr(obj,field))
+            written = writer.writerow(row)
+
+        return response
+    export_as_sendy.short_description = "Export to Sendy CSV"
+
+    def export_as_csv(self, request, queryset):
+        meta = self.model._meta
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(EXPORT_CSV_FIELDS)
+        for obj in queryset:
+            row = []
+            for field in EXPORT_CSV_FIELDS:
+                if hasattr(getattr(obj,'user'),field):
+                    row.append(getattr(getattr(obj,'user'),field))
+                else:
+                    row.append(getattr(obj,field))
+            written = writer.writerow(row)
+        return response
+    export_as_csv.short_description = "Export to CSV"
 
     def name(self, obj):
         return obj.user.get_full_name() + ' (' + obj.user.email + ')'
