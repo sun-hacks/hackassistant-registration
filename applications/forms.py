@@ -209,7 +209,7 @@ class ApplicationForm(OverwriteOnlyModelFormMixin, BetterModelForm):
               'so please include as much as you can.'}),
             ('Refer a Friend',
              {'fields': ('referral',),
-              'description': 'We want to build the hacker community here in Phoenix so we encourage you to invite your friends! If one of your friends inivted you please let us know. We have exclusive swag for top hackers who invite other hackers, so please invite as much as you can.'}),
+              'description': 'We want to build the hacker community here in Phoenix so we encourage you to invite your friends! If one of your friends invited you please let us know. We have exclusive swag for top hackers who invite other hackers, so please invite as much as you can.'}),
         ]
         deadline = getattr(settings, 'REIMBURSEMENT_DEADLINE', False)
         r_enabled = getattr(settings, 'REIMBURSEMENT_ENABLED', False)

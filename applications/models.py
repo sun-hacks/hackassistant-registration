@@ -5,7 +5,7 @@ import uuid as uuid
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator, MinValueValidator
+from django.core.validators import RegexValidator, MinValueValidator, EmailValidator
 from django.db import models
 from django.db.models import Avg
 from django.utils import timezone
@@ -169,8 +169,7 @@ class Application(models.Model):
     origin = models.CharField(max_length=300)
     # Who invited them?
     referral = models.CharField(blank=True, null=True, max_length=320,
-                                validators=[RegexValidator(regex=r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
-                                                            message="Referral must be a valid email address.")])
+                                validators=[EmailValidator(message="Enter a valid email address for referral")])
 
     # Is this your first hackathon?
     first_timer = models.BooleanField()
