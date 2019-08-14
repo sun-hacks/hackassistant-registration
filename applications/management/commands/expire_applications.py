@@ -12,10 +12,10 @@ class Command(BaseCommand):
     help = 'Checks invites that have expired and sends reminders 24 before'
 
     def handle(self, *args, **options):
-        fourdaysago = timezone.now() - timedelta(days=4)
+        thirteendaysago = timezone.now() - timedelta(days=13)
         self.stdout.write('Checking reminders...')
         reminders = models.Application.objects.filter(
-            status_update_date__lte=fourdaysago, status=models.APP_INVITED)
+            status_update_date__lte=thirteendaysago, status=models.APP_INVITED)
         self.stdout.write('Checking reminders...%s found' % reminders.count())
         self.stdout.write('Sending reminders...')
         msgs = []

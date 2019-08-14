@@ -97,7 +97,7 @@ class CancelApplication(IsHackerMixin, UserPassesTestMixin, TabsView):
 def get_deadline(application):
     last_updated = application.status_update_date
     if application.status == models.APP_INVITED:
-        deadline = last_updated + timedelta(days=3)
+        deadline = last_updated + timedelta(days=14)
     else:
         deadline = last_updated + timedelta(days=1)
     return deadline
