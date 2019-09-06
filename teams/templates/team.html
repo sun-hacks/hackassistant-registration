@@ -4,7 +4,7 @@
 {% block head_title %}Team{% endblock %}
 
 {% block panel %}
-    {% if team %}
+    {% if team and not application.answered_invite %}
         <h3>Team code</h3>
         <p class="lead">{{ team.team_code }}</p>
         <p>Send this to whoever you want to join this team. Remember that teams have a maximum size of {{ h_max_team }}
@@ -41,10 +41,11 @@
             </button>
         </form>
     {% elif application.answered_invite or application.is_invited %}
-        <p>You've already been accepted, so you don't need to join a team.</p>
-        <p>Please email us if your (future) teammates haven't been accepted, and we'll put you in their team.</p>
+        <p>Team registration is only to ensure that you and your teammates all recieve acceptances.</p>
+        <p>At the hackathon you can team up with anyone you want, regardless of who you registered with.</p>
+        <p>Please email us if your (future) teammates haven't been accepted and we'll be sure to send them an invite!</p>
     {% elif not h_app_closed and not team %}
-        <p>Do you have a team already? Join it below. Otherwise you can create a new team. </p>
+        <p>Do you have a team already? Join it below. Otherwise you can create a new team. We use this information to make sure all your teammates get acceptances. Once at the hackathon you are free to work with whoever you want.</p>
         <form action="" method="post" class="form">
             {% csrf_token %}
             {% bootstrap_form form %}
