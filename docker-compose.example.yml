@@ -16,6 +16,8 @@ services:
       EMAIL_HOST_PASSWORD: asdfasdfasdf7
       DATABASE_URL: postgres://reg:reg@db/reg
       DOMAIN: localhost:85
+      SL_TEAM: test
+      SL_TOKEN: asdfasdf
     ports:
       - 85:80
   db:
