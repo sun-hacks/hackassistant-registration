@@ -28,4 +28,5 @@ def send_slack_invite(email, active=True):
     if r.status_code == 200 and response_object['ok']:
         return True
     else:
+        print(response_object['error'])
         raise SlackInvitationException(response_object['error'])
