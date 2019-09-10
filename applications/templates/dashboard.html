@@ -72,6 +72,9 @@
 
                 {% include 'include/reupload.html' %}
 
+                <h3>Join our Slack</h3>
+                    <p> Our Slack is open prior to {{ h_name }} so you can get started organizing your team! <a href="https://join.slack.com/t/sunhacks2019/shared_invite/enQtNzU0MjMxOTU4NDA2LTFlZDgyODgxOTA2NDZiMTAyZGU1OGE4OWM0MzA2NzA0NDJmZWZmNDk2ODNlZDIyZmY3NGNhNWNiYzVhOTBhM2I" target="_blank" class="btn btn-block btn-success">Click here to join!</a>
+
                 {% if h_arrive %}
                     <h3>When to arrive</h3>
                     <p>{{ h_arrive }}</p>
@@ -80,6 +83,7 @@
                     <h3>When to leave</h3>
                     <p>{{ h_leave }}</p>
                 {% endif %}
+
                 {% include 'include/cancel.html' %}
             </div>
 
