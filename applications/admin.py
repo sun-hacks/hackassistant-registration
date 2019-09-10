@@ -9,7 +9,7 @@ from applications import models
 import csv
 from django.http import HttpResponse
 
-EXPORT_CSV_FIELDS = ['name', 'email', 'phone_number', 'university', 'gender','other_gender','ethnicity','other_ethnicity','degree', 'education', 'graduation_year', 'referral']
+EXPORT_CSV_FIELDS = ['name', 'email', 'phone_number', 'university', 'gender','other_gender','ethnicity','other_ethnicity','degree', 'education', 'graduation_year', 'data_consent', 'referral']
 
 EXPORT_CSV_FOR_SENDY = ['name','email']
 
