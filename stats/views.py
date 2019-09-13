@@ -58,6 +58,15 @@ def app_stats_api(request):
     gender_count = Application.objects.all().values('gender') \
         .annotate(applications=Count('gender'))
     gender_count = map(lambda x: dict(gender_name=GENDER_DICT[x['gender']], **x), gender_count)
+
+    educaiton_count = Application.objects.all().values('educaiton') \
+        .annotate(applications=Count('educaiton'))
+    educaiton_count = map(lambda x: dict(educaiton_name=EDUCATION_DICT[x['educaiton']], **x), educaiton_count)
+
+    ethnicity_count = Application.objects.all().values('ethnicity') \
+        .annotate(applications=Count('ethnicity'))
+    ethnicity_count = map(lambda x: dict(ethnicity_name=ETHNICITY_DICT[x['ethnicity']], **x), ethnicity_count)
+
     tshirt_dict = dict(a_models.TSHIRT_SIZES)
     shirt_count = map(
         lambda x: {'tshirt_size': tshirt_dict.get(x['tshirt_size'], 'Unknown'), 'applications': x['applications']},
@@ -87,6 +96,8 @@ def app_stats_api(request):
             'shirt_count_confirmed': list(shirt_count_confirmed),
             'timeseries': list(timeseries),
             'gender': list(gender_count),
+            'ethnicity': list(ethnicity_count),
+            'education': list(education),
             'diet': list(diet_count),
             'diet_confirmed': list(diet_count_confirmed),
             'other_diet': '<br>'.join([el['other_diet'] for el in other_diets if el['other_diet']])
