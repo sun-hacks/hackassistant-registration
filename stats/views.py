@@ -7,12 +7,13 @@ from django.utils import timezone
 
 from app.views import TabsView
 from applications import models as a_models
-from applications.models import Application, STATUS, APP_CONFIRMED, GENDERS
+from applications.models import Application, STATUS, APP_CONFIRMED, GENDERS, STUDY_LEVEL, ETHNICITIES
 from user.mixins import is_organizer, IsOrganizerMixin
 
 STATUS_DICT = dict(STATUS)
 GENDER_DICT = dict(GENDERS)
-
+EDUCATION_DICT = dict(STUDY_LEVEL)
+ETHNICITY_DICT = dict(ETHNICITIES)
 
 def stats_tabs():
     tabs = [('Applications', reverse('app_stats'), False), ]
@@ -59,9 +60,9 @@ def app_stats_api(request):
         .annotate(applications=Count('gender'))
     gender_count = map(lambda x: dict(gender_name=GENDER_DICT[x['gender']], **x), gender_count)
 
-    educaiton_count = Application.objects.all().values('educaiton') \
-        .annotate(applications=Count('educaiton'))
-    educaiton_count = map(lambda x: dict(educaiton_name=EDUCATION_DICT[x['educaiton']], **x), educaiton_count)
+    education_count = Application.objects.all().values('education') \
+        .annotate(applications=Count('education'))
+    education_count = map(lambda x: dict(education_name=EDUCATION_DICT[x['education']], **x), education_count)
 
     ethnicity_count = Application.objects.all().values('ethnicity') \
         .annotate(applications=Count('ethnicity'))
@@ -97,7 +98,7 @@ def app_stats_api(request):
             'timeseries': list(timeseries),
             'gender': list(gender_count),
             'ethnicity': list(ethnicity_count),
-            'education': list(education),
+            'education': list(education_count),
             'diet': list(diet_count),
             'diet_confirmed': list(diet_count_confirmed),
             'other_diet': '<br>'.join([el['other_diet'] for el in other_diets if el['other_diet']])
