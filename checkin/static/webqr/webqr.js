@@ -61,7 +61,7 @@ function isCanvasSupported() {
 }
 function success(stream) {
     if (webkit)
-        v.src = window.URL.createObjectURL(stream);
+        v.srcObject = stream;
     else if (moz) {
         v.mozSrcObject = stream;
         v.play();
@@ -147,4 +147,3 @@ function setwebcam2(options) {
     stype = 1;
     setTimeout(captureToCanvas, 500);
 }
-
