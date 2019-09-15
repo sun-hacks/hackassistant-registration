@@ -12,10 +12,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get all confirmed attendees who had a referral
-        referreds = models.Application.objects.filter(
-            status=models.APP_CONFIRMED).exclude(referral="")
-        for referred in referreds:
-            referrers = models.Application.objects.filter(
-            user__email = referred.referral)
-            for referrer in referrers:
-                self.stdout.write(f'{referred.user.name} was referred by {referrer.user.name}')
+        applications = models.Application.objects.filter(
+            status=models.APP_CONFIRMED)
+        for app in applications:
+            referrals = models.Application.objects.filter(
+            referral = app.user.email, status=models.APP_CONFIRMED)
+            app.set_referred(bool(referrals))
+            for referral in referrals:
+                self.stdout.write(f'{referral.user.name} was invited by {app.user.name}')

@@ -170,6 +170,7 @@ class Application(models.Model):
     # Who invited them?
     referral = models.CharField(blank=True, null=True, max_length=320,
                                 validators=[EmailValidator(message="Enter a valid email address for referral")])
+    referred = models.BooleanField(blank=True, default=False)
 
     # Is this your first hackathon?
     first_timer = models.BooleanField()
@@ -227,6 +228,9 @@ class Application(models.Model):
     def save(self, **kwargs):
         self.status_update_date = timezone.now()
         super(Application, self).save(**kwargs)
+
+    def save_no_update(self, **kwargs):
+        super(Application,self).save(**kwargs)
 
     def invite(self, user):
         # We can re-invite someone invited
@@ -337,6 +341,10 @@ class Application(models.Model):
 
     def can_confirm(self):
         return self.status in [APP_INVITED, APP_LAST_REMIDER]
+
+    def set_referred(self,val):
+        self.referred = val
+        self.save_no_update()
 
 
 class DraftApplication(models.Model):
