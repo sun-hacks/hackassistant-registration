@@ -1,0 +1,71 @@
+{% extends 'base_email.html' %}
+{% block preheader %}Everything you need to know for {{ h_name }}{% endblock %}
+
+{% block content %}
+    <p>Hey {{ name }}, we are super excited to see you at {{ h_name }} this year!
+    </p>
+    <p>Since {{ h_name }} is right around the corner, we wanted to share some important information with you. We will be sending out a full schedule later in the week but until then here's everything you need to know!
+    </p>
+
+    <p><b>Communication:</b><br>
+        We are going to be using Slack as our main form of communication throughout the weekend. Our workspace is open now for you to interact with other hackers, ask us questions, and start building your team! <a href="https://join.slack.com/t/sunhacks2019/shared_invite/enQtNzU0MjMxOTU4NDA2LTFlZDgyODgxOTA2NDZiMTAyZGU1OGE4OWM0MzA2NzA0NDJmZWZmNDk2ODNlZDIyZmY3NGNhNWNiYzVhOTBhM2I" target="_blank" class="btn btn-block btn-success">Click here to join!</a>
+    </p>
+    <p><b>Where:</b><br>
+        Everything will be held at Arizona State University's Sun Devil Fitness Complex (SDFCT) at 400 E Apache Blvd, Tempe, AZ 85287. See the map below for details. <b>While the Apache lot is highlighted, please read parking below before you attempt to park there</b>
+     </p>
+    {% include 'mails/include/email_image.html' with url=map_url %}
+    <p><b>Schedule Overview:</b><br>
+        <ul>
+            <li>Check-In will begin at 5:00PM Friday, September 20th in the Maroon Gym. Entrance will be through the side door on Normal Ave as shown in the map. At 8:00PM, the check-in desk will move to the lobby. Please enter through the SDFCT front entrance to the north</li>
+            <li>Opening Ceremony will begin at 7:00PM in the Gold Gym</li>
+            <li>Hacking will begin at 8:30PM in the Maroon Gym</li>
+            <li>Demo Fair will begin at 9:00AM Sunday, September 22nd in the Maroon Gym</li>
+            <li>Closing Ceremony is expected to end by 12:15PM in the Gold Gym</li>
+        </ul>
+    </p>
+
+
+    <p><b> What to Bring:</b><br>
+    <ul>
+        <li><b>Student ID</b>
+            - We will need this when you check in</li>
+        <li><b>Government ID</b>
+            - We will need this if you checkout hardware</li>
+        <li><b>QR Code</b>
+            - Have this so we can check you in quickly</li>
+        <li><b>Laptop and Charger</b>
+            - You'll need a device to develop on and something to charge it</li>
+        <li><b>Phone and Charger</b>
+            - Probably a good idea to stay connected</li>
+        <li><b>Tech Devices</b>
+            - If there's any tech you want to play with be sure to bring it</li>
+        <li><b>Sleeping Stuff</b>
+            - We will have a nap-a-thon room so be sure to bring whatever you need to sleep (sleeping bag, mattress pad, blankets, pillows etc.)</li>
+        <li><b>Toiletries</b>
+            - Toothbrush/Toothpaste, Shampoo/Soap, Deodorant, Prescriptions / Medications, etc. We will have showers in the evening and would greatly appreciate if you used them!</li>
+        <li><b>Clothes</b>
+            - You probably don't want to wear the same thing for three days. It might get chilly so a jacket isn't a bad idea either</li>
+        <li><b>Water Bottle</b>
+            - There will be water refill stations throughout the venue! Please bring your own bottle to reduce waste</li>
+        <li><b>Coffee Mug</b>
+            - We will have nonstop coffee service all weekend! Please bring your own mug to reduce waste</li>
+    </ul>
+
+    <p><b>Parking:</b><br>
+        If you plan on driving to {{ h_name }}, we recommend parking in the Apache Boulevard Parking Structure. This weekend, ASU has a concert, 5 shows at Gammage and a football game all sharing the Apache lot. Parking will be difficult so please consider alternative ways of getting to {{ h_name }}. If you must drive please consider setting up a carpool in the #carpooling channel on Slack. If Apache is full, other garages to park at in order of closeness are the 10th St Parking Structure, the Rural Rd. Parking Structure, and the Tyler St. Parking Structure. Parking <i>should</i> be free on weekends but Parking and Transit will be charging entrance fees for parking for the football game and possibly the evening Gammage event. You may be able to say that you are attending {{ h_name }} and will not be attending the not attending the game or Gammage event and get by without paying. If you enter the structure on Friday afternoon and leave Sunday you will <i>probably</i> be fine and not have to pay anything. If you need to leave, you can leave as early as Saturday 7am and avoid paying for your Friday stay. <b>Updates will be posted on Slack as we receive more information.</b>
+
+    </p>
+
+    <p><b>Airport:</b><br>
+        If you are flying into the Phoenix Sky Harbor, we recommend using a rideshare to the SDFCT.
+    <p>
+
+    <p><b>Help {{ h_name }}:</b><br>
+        If you'd like to help out at {{ h_name }}, we have multiple opportunities for hackers! There will be awesome swag for hackers who help us volunteer and mentor at the event.
+        <p>
+        If you'd like to mentor other hackers we encourage you to sign up <a href="http://links.sunhacks.io/mentor" target="_blank">here</a>.
+        </p><p>
+        We would also appreciate some extra help with setup, tear down, and everything in-between! If you'd like to volunteer to help {{ h_name }} we have a sign up <a href="http://links.sunhacks.io/volunteer" target="_blank">here</a>.
+        </p>
+    <p>
+{% endblock %}

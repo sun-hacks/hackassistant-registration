@@ -145,6 +145,8 @@ class Application(models.Model):
     status = models.CharField(choices=STATUS, default=APP_PENDING,
                               max_length=2)
 
+    sent_info = models.BooleanField(blank=True, default=False)
+
     # ABOUT YOU
     # Population analysis, optional
     gender = models.CharField(max_length=23, choices=GENDERS, default=NO_ANSWER)
@@ -344,6 +346,10 @@ class Application(models.Model):
 
     def set_referred(self,val):
         self.referred = val
+        self.save_no_update()
+
+    def send_info(self):
+        self.sent_info = True
         self.save_no_update()
 
 

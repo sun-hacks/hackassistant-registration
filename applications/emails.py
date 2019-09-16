@@ -40,6 +40,14 @@ def create_lastreminder_email(application):
     return emails.render_mail('mails/last_reminder',
                               application.user.email, c, action_required=True)
 
+def create_get_ready_email(application):
+    c = {
+        'name': application.user.get_full_name,
+        'map_url': "https://github.com/sun-hacks/website/blob/master/assets/map.png?raw=true"
+    }
+    return emails.render_mail('mails/get_ready',
+                              application.user.email, c)
+
 
 def send_batch_emails(emails):
     connection = mail.get_connection()

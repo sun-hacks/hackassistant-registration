@@ -1,0 +1,1 @@
+☀️Welcome to {{ h_name }}! Everything you need in this email 🎒
