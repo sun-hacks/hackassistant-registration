@@ -1,0 +1,17 @@
+{% extends 'base_email.html' %}
+{% block preheader %} Last reminder email for {{ h_name }}{% endblock %}
+
+{% block content %}
+    <p>
+        Hi {{ name }},
+    </p>
+    <p>
+        We are still waiting for your answer! While the previous email said you have two weeks to respond, {{ h_name }} is days away and we want to make sure everyone that wants to attend can. Please confirm your attendance by Wednesday September 18th at 11:59PM!
+
+        <b>If you do not confirm, your application will expire and we will give your spot to another hacker.</b>
+    </p>
+    {% include 'mails/include/email_button.html' with text='Confirm' url=confirm_url %}
+
+    {% include 'mails/include/cancel.html' %}
+    {% include 'mails/include/closing.html' %}
+{% endblock %}

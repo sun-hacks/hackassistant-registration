@@ -17,6 +17,7 @@ from app import slack
 from app.slack import SlackInvitationException
 from app.utils import reverse, hacker_tabs
 from app.views import TabsView
+from app.settings import HACKATHON_APP_DEADLINE
 from applications import models, emails, forms
 from user.mixins import IsHackerMixin, is_hacker
 
@@ -100,6 +101,8 @@ def get_deadline(application):
         deadline = last_updated + timedelta(days=14)
     else:
         deadline = last_updated + timedelta(days=1)
+    if deadline > HACKATHON_APP_DEADLINE:
+        deadline = HACKATHON_APP_DEADLINE
     return deadline
 
 

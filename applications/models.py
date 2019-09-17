@@ -24,6 +24,7 @@ APP_CONFIRMED = 'C'
 APP_CANCELLED = 'X'
 APP_ATTENDED = 'A'
 APP_EXPIRED = 'E'
+APP_DEADLINE_REMINDER = 'D'
 
 STATUS = [
     (APP_PENDING, 'Under review'),
@@ -34,6 +35,7 @@ STATUS = [
     (APP_CANCELLED, 'Cancelled'),
     (APP_ATTENDED, 'Attended'),
     (APP_EXPIRED, 'Expired'),
+    (APP_DEADLINE_REMINDER, 'Last reminder (deadline)'),
 ]
 
 NO_ANSWER = 'NA'
@@ -255,6 +257,14 @@ class Application(models.Model):
         self.status = APP_LAST_REMIDER
         self.save()
 
+    def deadline_reminder(self):
+        if self.status != APP_INVITED:
+            raise ValidationError('Reminder can\'t be sent to non-pending '
+                                  'applications')
+        self.status_update_date = timezone.now()
+        self.status = APP_DEADLINE_REMINDER
+        self.save()
+
     def expire(self):
         self.status_update_date = timezone.now()
         self.status = APP_EXPIRED
@@ -273,7 +283,7 @@ class Application(models.Model):
             raise ValidationError('This invite has been cancelled.')
         elif self.status == APP_EXPIRED:
             raise ValidationError('Unfortunately your invite has expired.')
-        elif self.status in [APP_INVITED, APP_LAST_REMIDER]:
+        elif self.status in [APP_INVITED, APP_LAST_REMIDER, APP_DEADLINE_REMINDER]:
             self.status = APP_CONFIRMED
             self.status_update_date = timezone.now()
             self.save()
@@ -336,13 +346,13 @@ class Application(models.Model):
         return self.status == APP_ATTENDED
 
     def is_last_reminder(self):
-        return self.status == APP_LAST_REMIDER
+        return self.status == APP_LAST_REMIDER or self.status == APP_DEADLINE_REMINDER
 
     def can_be_cancelled(self):
-        return self.status == APP_CONFIRMED or self.status == APP_INVITED or self.status == APP_LAST_REMIDER
+        return self.status == APP_CONFIRMED or self.status == APP_INVITED or self.status == APP_LAST_REMIDER or self.status == APP_DEADLINE_REMINDER
 
     def can_confirm(self):
-        return self.status in [APP_INVITED, APP_LAST_REMIDER]
+        return self.status in [APP_INVITED, APP_LAST_REMIDER, APP_DEADLINE_REMINDER]
 
     def set_referred(self,val):
         self.referred = val

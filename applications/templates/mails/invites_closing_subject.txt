@@ -1,0 +1,1 @@
+{{ h_name }} is days away. Please confirm your attendance!
