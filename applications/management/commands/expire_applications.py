@@ -21,7 +21,7 @@ class Command(BaseCommand):
         msgs = []
         for app in too_soons:
             app.deadline_reminder()
-            msgs.append(emails.create_deadline_email(app))
+            # msgs.append(emails.create_deadline_email(app))
         connection = mail.get_connection()
         connection.send_messages(msgs)
         self.stdout.write(self.style.SUCCESS(
