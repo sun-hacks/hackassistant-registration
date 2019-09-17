@@ -98,18 +98,23 @@ class InviteListView(TabsViewMixin, IsDirectorMixin, SingleTableMixin, FilterVie
         apps = models.Application.objects.filter(pk__in=ids).all()
         mails = []
         errors = 0
+
         for app in apps:
             try:
-                app.invite(request.user)
-                m = emails.create_invite_email(app, request)
+                if request.POST.get("invite"):
+                    app.invite(request.user)
+                    m = emails.create_invite_email(app, request)
+                elif request.POST.get("wait_list"):
+                    app.wait_list(request.user)
+                    m = emails.create_wait_list_email(app)
                 mails.append(m)
             except ValidationError:
                 errors += 1
         if mails:
             send_batch_emails(mails)
-            messages.success(request, "%s applications invited" % len(mails))
+            messages.success(request, "%s applications responded" % len(mails))
         else:
-            errorMsg = "No applications invited"
+            errorMsg = "No applications changed"
             if errors != 0:
                 errorMsg = "%s applications not invited" % errors
             messages.error(request, errorMsg)
@@ -185,8 +190,11 @@ class ApplicationDetailView(TabsViewMixin, IsOrganizerMixin, TemplateView):
 
     def waitlist_application(self, application):
         try:
-            application.reject(self.request)
+            application.wait_list(self.request)
             messages.success(self.request, "%s application wait listed" % application.user.email)
+            m = emails.create_wait_list_email(application)
+            m.send()
+
         except ValidationError as e:
             messages.error(self.request, e.message)
 

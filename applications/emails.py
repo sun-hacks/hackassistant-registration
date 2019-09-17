@@ -51,6 +51,13 @@ def create_deadline_email(application):
     return emails.render_mail('mails/invites_closing',
                               application.user.email, c, action_required=True)
 
+def create_wait_list_email(application):
+    c = {
+        'name': application.user.get_full_name,
+    }
+    return emails.render_mail('mails/wait_list',
+                              application.user.email, c)
+
 def create_get_ready_email(application):
     c = {
         'name': application.user.get_full_name,

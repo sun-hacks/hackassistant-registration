@@ -1,0 +1,1 @@
+You are on the {{ h_name }} wait list

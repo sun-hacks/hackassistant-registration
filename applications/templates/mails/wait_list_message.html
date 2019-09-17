@@ -1,0 +1,32 @@
+{% extends 'base_email.html' %}
+{% block preheader %}Wait list for {{ h_name }}{% endblock %}
+
+{% block content %}
+    <p>
+        Hello {{ name }}, we are sad to let you know that you have been added to the {{ h_name }} wait list.
+    </p>
+    <p>
+        We were overwhelmed with applications this year and are unfortunately unable to accommodate everyone. We are still waiting to receive RSVPs from some hackers. Please keep an eye on your email in case your status changes as cancellations come in. We will be inviting wait-listed applicants in the order they were received.
+    </p>
+    <p>
+        On the first day of {{ h_name }}, we expect no-shows. After general check-in closes, we will send a first come, first serve email to all wait-listed hackers. Wait-list check-in will open at 8PM in the SDFCT lobby. We will be checking in hackers until we are full. We hope you understand and hope we might see you there.
+    </p>
+    <p>
+        Have any other questions? Email us at {{ h_contact_email|urlize }}
+        {% if h_fb or h_tw %}
+            or message us on
+            {% if h_fb %}
+                <a href="https://facebook.com/{{ h_fb }}" target="_blank">Facebook</a>
+                {% if h_tw %}
+                    and
+                    <a href="https://twitter.com/{{ h_tw }}" target="_blank">Twitter</a>
+                {% endif %}
+            {% elif h_tw %}
+                <a href="https://twitter.com/{{ h_tw }}" target="_blank">Twitter</a>
+            {% endif %}
+            .
+        {% endif %}
+    </p>
+    <p>Happy hacking,</p>
+    <p>{{ h_name }} Team</p>
+{% endblock %}

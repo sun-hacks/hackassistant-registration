@@ -278,6 +278,14 @@ class Application(models.Model):
         self.status_update_date = timezone.now()
         self.save()
 
+    def wait_list(self, request):
+        if self.status == APP_ATTENDED:
+            raise ValidationError('Application has already attended. '
+                                  'Current status: %s' % self.status)
+        self.status = APP_REJECTED
+        self.status_update_date = timezone.now()
+        self.save()
+
     def confirm(self):
         if self.status == APP_CANCELLED:
             raise ValidationError('This invite has been cancelled.')

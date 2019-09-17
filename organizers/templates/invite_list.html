@@ -11,6 +11,9 @@
         <button name="invite" class="btn btn-success btn-block"
                 value="invite">Invite
         </button>
+        <button name="wait_list" class="btn btn-danger btn-block"
+                value="wait_list">Wait List
+        </button>
         {% if teams %}
             <a href="{% url 'invite_list' %}" class="btn btn-default btn-block">View applications</a>
         {% elif h_team_enabled %}
