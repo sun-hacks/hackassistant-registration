@@ -32,7 +32,7 @@ HACKATHON_FACEBOOK_PAGE = 'sunhacksofficial'
 HACKATHON_GITHUB_REPO = 'https://github.com/hackassistant/registration/'
 
 # (OPTIONAL) Applications deadline
-# HACKATHON_APP_DEADLINE = timezone.datetime(2018, 2, 24, 3, 14, tzinfo=timezone.pytz.timezone(TIME_ZONE))
+HACKATHON_APP_DEADLINE = timezone.datetime(2019, 9, 18, 23, 59, tzinfo=timezone.pytz.timezone(TIME_ZONE))
 # (OPTIONAL) When to arrive at the hackathon
 HACKATHON_ARRIVE = 'Check in opens at 5:00 PM on Friday September 20th, ' \
                    'the opening ceremony will be at 7:00 pm.'
@@ -66,9 +66,9 @@ CODE_CONDUCT_LINK = "https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
 # (OPTIONAL) Slack credentials
 # Highly recommended to create a separate user account to extract the token from
 SLACK = {
-    'team': os.environ.get('SL_TEAM', 'test'),
+    'team': os.environ.get('SL_TEAM', 'team'),
     # Get it here: https://api.slack.com/custom-integrations/legacy-tokens
-    'token': os.environ.get('SL_TOKEN', None)
+    'token': os.environ.get('SL_TOKEN', "team")
 }
 
 # (OPTIONAL) Logged in cookie
