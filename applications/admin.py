@@ -15,6 +15,8 @@ EXPORT_CSV_FOR_MLH = ['name', 'email', 'phone_number', 'university', 'gender','o
 
 EXPORT_CSV_FOR_SPONSOR = ['name', 'university', 'degree', 'education', 'graduation_year', 'resume', 'sponsor_consent']
 
+EXPORT_CSV_FOR_FOOD = ['name', 'email', 'university', 'diet', 'other_diet']
+
 EXPORT_CSV_FOR_SENDY = ['name','email']
 
 
@@ -63,6 +65,10 @@ class ApplicationAdmin(admin.ModelAdmin):
     def export_as_sponsor(self, request, queryset):
         return self.export_csv(request,queryset,"sponsor",EXPORT_CSV_FOR_SPONSOR)
     export_as_sponsor.short_description = "Export to Sponsor CSV"
+
+    def export_as_food(self, request, queryset):
+        return self.export_csv(request,queryset,"food",EXPORT_CSV_FOR_FOOD)
+    export_as_food.short_description = "Export to Food CSV"
 
     def name(self, obj):
         return obj.user.get_full_name() + ' (' + obj.user.email + ')'
