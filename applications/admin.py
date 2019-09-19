@@ -31,7 +31,7 @@ class ApplicationAdmin(admin.ModelAdmin):
     ordering = ('submission_date',)
     date_hierarchy = 'submission_date'
 
-    actions = ["export_as_csv", "export_as_sendy", "export_as_MLH", "export_as_sponsor"]
+    actions = ["export_as_csv", "export_as_sendy", "export_as_MLH", "export_as_sponsor","export_as_food"]
 
     def export_csv(self, request, queryset, filename, fields):
 
