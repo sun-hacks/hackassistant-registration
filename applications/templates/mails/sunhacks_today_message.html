@@ -1,0 +1,37 @@
+{% extends 'base_email.html' %}
+{% block preheader %}Today's the day for {{ h_name }}!{% endblock %}
+
+{% block content %}
+    <p>Hey {{ name }},
+    </p>
+    <p>sunhacks is upon us! In preparation for your arrival we have a live site (<a href="live.sunhacks.io" target="_blank">live.sunhacks.io</a>) which contains all the information you might need to know on how to get here, and also anything else throughout the weekend.
+    </p>
+
+    {% if confirmed %}
+    <p>Here’s some key info for today: <p>
+<ul>
+    <li>Park at the Apache Blvd. Structure, if you stay past 6:00AM on Saturday you won’t have to pay for parking. </li>
+    <li>Check in starts at 5:00PM through a side entrance to the venue between SDFCT and Apache Blvd. Structure (on Normal Ave). You will need your QR code (below) and Student ID </li>
+    <li>Opening ceremonies just after 7:00PM</li>
+    <li>We’ve planned a great weekend for you and are excited for your arrival! </li>
+</ul>
+    {% else %}
+
+    <p>You are on the waitlist. Never fear! While you may be on the waitlist here is some key info for today:</p>
+    <ul>
+    <li>Park at the Apache Blvd. Structure, if you stay past 6:00AM on Saturday you won’t have to pay for parking. </li>
+    <li>Waitlist check in starts after 7:00PM in the SDFCT Lobby </li>
+    <li>We will do our best to accept as many as possible but we can’t promise we’ll be able to accept all of you. </li>
+    </ul>
+
+    {% endif %}
+    <p>Don't forget to bring sleeping gear for our napathon room, shower gear for our showers, reusable water bottles and a coffee mug for our sustainability efforts, and your awesome wonderful self!</p>
+
+    {% if confirmed %}
+        <p> Also don't forget your student ID and this QR code for check in: </p>
+        {% include 'mails/include/email_image.html' with url=qr_url %}
+        {% include 'mails/include/cancel.html' %}
+    {% endif %}
+
+    {% include 'mails/include/closing.html' %}
+{% endblock %}
