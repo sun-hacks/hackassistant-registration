@@ -17,7 +17,7 @@ EXPORT_CSV_FOR_SPONSOR = ['name', 'university', 'degree', 'education', 'graduati
 
 EXPORT_CSV_FOR_FOOD = ['name', 'email', 'university', 'diet', 'other_diet']
 
-EXPORT_CSV_FOR_SENDY = ['name','email']
+EXPORT_CSV_FOR_SENDY = ['name','email','first_timer']
 
 
 class ApplicationAdmin(admin.ModelAdmin):
