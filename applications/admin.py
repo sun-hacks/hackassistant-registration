@@ -13,7 +13,7 @@ EXPORT_CSV_FIELDS = ['name', 'email', 'phone_number', 'university', 'gender','ot
 
 EXPORT_CSV_FOR_MLH = ['name', 'email', 'phone_number', 'university', 'gender','other_gender','ethnicity','other_ethnicity','degree', 'education', 'graduation_year', 'data_consent']
 
-EXPORT_CSV_FOR_SPONSOR = ['name', 'university', 'degree', 'education', 'graduation_year', 'resume', 'sponsor_consent']
+EXPORT_CSV_FOR_SPONSOR = ['name', 'email', 'university', 'degree', 'education', 'graduation_year', 'resume', 'sponsor_consent']
 
 EXPORT_CSV_FOR_FOOD = ['name', 'email', 'university', 'diet', 'other_diet']
 
